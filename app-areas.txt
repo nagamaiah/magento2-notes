@@ -1,0 +1,30 @@
+
+			Magento Areas
+
+class -> \Magento\Framework\App\Area
+
+	const AREA_GLOBAL = 'global';
+	const AREA_FRONTEND = 'frontend';
+	const AREA_ADMINHTML = 'adminhtml';
+	const AREA_DOC = 'doc';
+	const AREA_CRONTAB = 'crontab';
+	const AREA_WEBAPI_REST = 'webapi_rest';
+	const AREA_WEBAPI_SOAP = 'webapi_soap';
+	const AREA_GRAPHQL = 'graphql';
+
+    /**
+     * @deprecated
+     */
+    const AREA_ADMIN    = 'admin';
+
+
+    /**
+     * Area parameter.
+     */
+    const PARAM_AREA = 'area';
+    
+    
+    
+    
+    https://developer.adobe.com/commerce/php/architecture/modules/areas/
+    https://webkul.com/blog/magento-2-development-02-area-codes/

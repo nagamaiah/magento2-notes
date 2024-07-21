@@ -1,0 +1,116 @@
+
+
+			Magento Store Configuration (Create & Get)    Stores -> Settings -> Configuration
+
+    Tabs // Sections // Groups // Fields
+    Tab -> Section -> Group -> Field
+@@# customers -> newsletter -> general options -> enabled(yes/no)
+@@# general -> web -> base urls -> base url
+@@# sales -> shipping methods -> Flat rate -> Method Name
+
+
+php bin/magento config:show     // lists all system config keys => values pairs
+php bin/magento config:show web/unsecure/base_url     // returned http://local.magento245.com/
+php bin/magento config:show dev/debug/template_hints_storefront
+php bin/magento config:set dev/debug/template_hints_storefront 1
+
+*****get scopeconfig values*
+public function getValue($configPath, $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null);
+$store_url = $scopeConfig->getValue('web/secure/base_url',\Magento\Store\Model\ScopeInterface::SCOPE_STORE,'c2m_beta');
+
+1. Using object manager
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$conf = $objectManager->get(\Magento\Framework\App\Config\ScopeConfigInterface::class)->getValue('section_id/group_id/field_id');
+
+2. Using Helper -- Create Data.php inside Helper folder of your module and write below code inside it.
+<?php
+namespace VendorName\ModuleName\Helper;
+
+class Data extends \Magento\Framework\App\Helper\AbstractHelper
+{
+public function getConfig($config_path)
+{
+    return $this->scopeConfig->getValue(
+        $config_path,
+        \Magento\Store\Model\ScopeInterface::SCOPE_STORE
+    );
+}
+}
+?>
+
+call this helper inside your phtml file
+<?php
+ $value=$this->helper(\VendorName\ModuleName\Helper\Data::class)->getConfig('section_id/group_id/field_id');
+   echo $value;
+?>
+
+3. Get value yes/no in xml file 
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <referenceContainer name="page.top">
+            <block ifconfig="themes/general/enable_status" class="Magento\Framework\View\Element\Template"  name="top.banner" template="Magetop_Themes::html/mainBaner.phtml"/>
+        </referenceContainer>
+    </body>
+</page>
+
+
+**** Vendor/Module/etc/adminhtml/system.xml  and Vendor/Module/etc/config.xml
+
+
+***Default Source Models are listed below and are located under the /vendor/magento/module-config/Model/Config/Source/ folder :
+
+Magento\Config\Model\Config\Source\Locale → Locale options
+Magento\Config\Model\Config\Source\Enabledisable → Enable / Disable options
+Magento\Config\Model\Config\Source\Nooptreq → No / Optional / Required options
+Magento\Config\Model\Config\Source\Store → Store options
+Magento\Config\Model\Config\Source\Website → Website options
+Magento\Config\Model\Config\Source\Yesno → Yes / No options
+Magento\Config\Model\Config\Source\Yesno → Yes / No / Specified options
+Magento\Config\Model\Config\Source\Locale\Country → Country options
+Magento\Config\Model\Config\Source\Locale\Currency → Currency options
+Magento\Config\Model\Config\Source\Locale\Timezone → Timezone options
+Magento\Config\Model\Config\Source\Locale\Weekdaycodes → Week Day Codes options
+Magento\Config\Model\Config\Source\Locale\Weekdays → Week Days options
+Magento\Config\Model\Config\Source\Email\Template → Email Template options
+
+**Custom Source Model implements \Magento\Framework\Option\ArrayInterface   method -> toOptionArray()
+  public function toOptionArray()
+    {
+        return [
+            ['value' => 1, 'label' => __('Option 1')],
+            ['value' => 2, 'label' => __('Option 2')]
+        ];
+    }
+
+
+https://m.academy/blog/magento-2-configuration-settings-fallback-process/
+
+**Magento 2 system configuration provides the following field types:
+button
+checkbox
+checkboxes
+column
+date
+editablemultiselect
+editor
+fieldset
+file
+gallery
+hidden
+image
+imagefile
+label
+link
+multiline
+multiselect
+note
+obscure
+password
+radio
+radios
+reset
+select
+submit
+text
+textarea
+time

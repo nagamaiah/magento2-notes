@@ -1,0 +1,27 @@
+
+
+			Magento Url Rewrites
+
+1. The URL Rewrite tool lets you change any URL that is associated with a product, category, or CMS page. 
+   A URL rewrite changes the way a URL appears in the browser. A URL redirect updates the URL that is stored on the server.
+2. The Request Path contains the URL key or path of the original redirect from page. The Target Path contains the URL of the redirect to page.
+3. We need to find target path using product or category or cms (id).
+4. Then we need to specify request path and target path and save the rewrite.
+
+notecard folded id -> 637  url-key ->notecard-folded-4-25-x-5-5
+product name -> Notecard - Folded 4.125 x 5.5 
+sku ->  WP-NC-8x5-MOLP
+catid -> 157  
+
+certified self mailer -> 262
+Certified Self Mailer 8.5 x 11
+WP-CMSM-8x11-MOLP
+certified-self-mailer-8-5x11
+catid->30
+Need to set store properly
+url_rewrite ids -> (81154,81155)
+request path  -> by-product/notecards/notecard-folded-4-25-x-5-5
+target path -> catalog/product/view/id/637/category/157
+
+request path -> by-product/certified-mail/certified-self-mailer-8-5-x-11 
+target path -> catalog/product/view/id/262/category/30

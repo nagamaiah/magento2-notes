@@ -1,0 +1,169 @@
+
+# Magento243 install ubuntu 22.04 LTS (Jammy Jellyfish)
+
+https://www.thecoachsmb.com/install-magento-2-4-5-on-ubuntu-22-04-complete-guide/
+
+1. install apache2 server
+sudo apt install apache2
+sudo apache2ctl -v   #check version
+systemctl is-enabled apache2 
+
+2. Install MySQL and Create Database for Magento2
+sudo apt install mysql-server
+mysql -V
+SELECT user,authentication_string,plugin,host FROM mysql.user;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_secure_password';
+
+CREATE USER 'magento2'@'localhost' IDENTIFIED BY 'your_secure_password';
+ALTER USER 'magento2'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_secure_password';
+GRANT ALL PRIVILEGES ON *.* TO 'magento2'@'localhost' WITH GRANT OPTION;
+
+
+3. Install php and required extensions
+
+Change php.ini settings
+sudo find /etc/php/8.1 -name php.ini -type f
+php -i | grep "Configuration File"
+/etc/php/8.1/cli/php.ini
+
+grep -rin "max_execution_time" /etc/php/8.1/cli/php.ini
+409:max_execution_time = 30   //you will get the line number
+419:max_input_time = 60
+430:memory_limit = -1
+upload_max_filesize
+
+sudo vim /etc/php/8.1/cli/php.ini
+:409  or /max_execution_time
+insert and change value
+esc  and :wq!
+
+grep -rin "max_execution_time" /etc/php/8.1/apache2/php.ini
+412:max_execution_time = 30
+422:max_input_time = 60
+433:memory_limit = 128M
+upload_max_filesize
+
+grep -rin "max_input_time" /etc/php/8.1/fpm/php.ini
+409:max_execution_time = 30
+419:max_input_time = 60
+430:memory_limit = 128M
+
+sudo vim /etc/php/8.1/fpm/php.ini /max_execution_time
+
+max_execution_time=18000
+max_input_time=1800
+memory_limit=4G
+
+sudo service php8.1-fpm restart
+sudo service php8.1-fpm status
+
+
+4. Install Elasticsearch
+sudo apt install openjdk-17-jdk
+java -version
+import the GPG key
+sudo curl -sSfL https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo gpg --no-default-keyring --keyring=gnupg-ring:/etc/apt/trusted.gpg.d/magento.gpg --import
+sudo apt install elasticsearch
+
+sudo systemctl start elasticsearch.service
+curl -X GET 'http://localhost:9200'
+
+
+5. Install composer
+curl -sS https://getcomposer.org/installer -o composer-setup.php
+sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
+composer --version
+
+
+6. Download and Install Magento2
+
+https://commercemarketplace.adobe.com/
+https://commercemarketplace.adobe.com/customer/accessKeys/
+Magento A/c : n63@gmail/Magento@2468  (or) Login with google a/c
+Mage A/c ID : MAG005527813
+
+	
+Public Key: 679323f70a1c0532091f8ebbaebfde09
+Private Key: 50c96823573c4412ec8c6e0deb9e0ea7
+
+# Create a new Composer project using the Magento Open Source or Magento Commerce metapackage.
+1. Download Magento2
+sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.3 ./
+
+2. Install Magento 2  ( http://local.magento243.com/ )
+php bin/magento setup:install --base-url=<your-domain> --db-host=localhost --db-name=magento2 --db-user=magento2 --db-password=<your-db-password-of-magento2-user> --admin-firstname=Admin --admin-lastname=Admin --admin-email=admin@admin.com --admin-user=admin --admin-password=<your-admin-password> --language=en_US --currency=USD --timezone=America/Chicago --backend-frontname=admin --search-engine=elasticsearch7 --elasticsearch-host=localhost --elasticsearch-port=9200
+
+
+php bin/magento setup:install \--base-url=http://local.magento243.com \--db-host=localhost \--db-name=magento243 \--db-user=root \--db-password=MySql@123 \--admin-firstname=admin \--admin-lastname=admin \--admin-email=admin123@gmail.com \--admin-user=admin \--admin-password=admin123 \--language=en_US \--currency=USD \--timezone=America/New_York \--backend-frontname=admin \--search-engine=elasticsearch7 \--elasticsearch-host=localhost \--elasticsearch-port=9200
+
+magento/product-community-edition 2.4.3 requires php ~7.3.0||~7.4.0 -> your php version (8.1.2) does not satisfy that requirement.
+
+---------------------------------------------------------------------------------------------------------------------------------
+
+# Magento245 install ubuntu 22.04
+
+
+Ellastic search 
+sudo apt-get update
+sudo apt-get install apt-transport-https openjdk-8-jre-headless
+sudo wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+sudo echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" | sudo tee /etc/apt/sources.list.d/elastic-6.x.list
+sudo apt-get update && sudo apt-get install elasticsearch
+sudo /bin/systemctl daemon-reload
+sudo /bin/systemctl enable elasticsearch.service
+sudo systemctl start elasticsearch.service
+
+
+sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.5 ./
+
+sudo php bin/magento setup:install \--base-url=http://local.magento245.com \--db-host=localhost \--db-name=magento245 \--db-user=root \--db-password=MySql@123 \--admin-firstname=admin \--admin-lastname=admin \--admin-email=admin123@gmail.com \--admin-user=admin \--admin-password=admin123 \--language=en_US \--currency=USD \--timezone=America/New_York \--use-rewrites=1 \--backend-frontname=admin \--search-engine=elasticsearch7 \--elasticsearch-host=localhost \--elasticsearch-port=9200
+
+Disable admin two factor authentication 
+php bin/magento module:disable Magento_TwoFactorAuth
+php bin/magento cache:flush 
+
+sudo php bin/magento setup:di:compile
+sudo php bin/magento setup:upgrade
+sudo php bin/magento setup:static-content:deploy -f
+sudo chmod -R 0777 var/ generated/ pub/static
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Magento246 install ubuntu 22.04
+
+
+composer config --global http-basic.repo.magento.com 679323f70a1c0532091f8ebbaebfde09 50c96823573c4412ec8c6e0deb9e0ea7
+
+sudo composer create-project --repository-url=https://repo.magento.com/ magento/project-community-edition=2.4.6 ./magento246
+
+sudo php bin/magento setup:install \--base-url=http://local.magento246.com \--db-host=localhost \--db-name=magento246 \--db-user=root \--db-password=MySql@123 \--admin-firstname=admin \--admin-lastname=admin \--admin-email=admin123@gmail.com \--admin-user=admin \--admin-password=admin123 \--language=en_US \--currency=USD \--timezone=America/New_York \--use-rewrites=1 \--backend-frontname=admin \--search-engine=elasticsearch8 \--elasticsearch-host=localhost \--elasticsearch-port=9200
+
+
+Disable admin two factor authentication 
+sudo php bin/magento module:disable Magento_TwoFactorAuth Magento_AdminAdobeImsTwoFactorAuth 
+sudo php bin/magento cache:flush
+
+sudo php bin/magento deploy:mode:set developer
+
+sudo php bin/magento setup:di:compile
+sudo php bin/magento setup:upgrade
+sudo php bin/magento setup:static-content:deploy -f
+sudo chmod -R 0777 var/ generated/ pub/static
+
+// enable rewrites if you get 404 page
+https://www.magedelight.com/resources/how-to-solve-404-error-page-not-found-in-admin-in-magento-2/
+sudo a2enmod rewrite
+
+
+https://www.thecoachsmb.com/install-magento-2-4-5-on-ubuntu-22-04-complete-guide/
+https://magento.stackexchange.com/questions/366082/magento-2-4-6-could-not-validate-a-connection-to-the-opensearch-no-alive-node
+https://stackoverflow.com/questions/76252296/can-i-install-opensearch-without-using-docker-on-ubuntu
+
+catalog search engine management ::
+php bin/magento config:set catalog/search/engine 'opensearch'
+update core_config_data set value = "opensearch" where path = "catalog/search/opensearch_server_hostname";
+update core_config_data set value = "opensearch" where path = "catalog/search/engine";
+update core_config_data set value = "9200" where path = "catalog/search/opensearch_server_port";
+
+

@@ -1,0 +1,24 @@
+			Magento Url Types
+
+/**#@+
+     * Possible URL types
+     */
+    const URL_TYPE_LINK = 'link';
+    const URL_TYPE_DIRECT_LINK = 'direct_link';
+    const URL_TYPE_WEB = 'web';
+    const URL_TYPE_MEDIA = 'media';
+    const URL_TYPE_STATIC = 'static';
+    const URL_TYPE_JS = 'js';
+    /**#@-*/
+
+$mediaUrl = $storeManager->getStore()->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA);
+header('Location: ' . $_objectmanager->get(\Magento\Framework\UrlInterface::class)->getUrl('customer/account/login'));
+href="<?php echo  $scopeConfig->getValue('web/secure/base_url',\Magento\Store\Model\ScopeInterface::SCOPE_STORE,'c2m_beta'); ?>help"
+
+url('{{media url=""}}images/cmsimages/Product-Search-02.png')
+background: url('{{media url=""}}images/featured_banner.jpg') no-repeat !important;
+background-image: url('{{view url=""}}/images/cmsimages/product_postcards.svg') !important;
+background-image: url('{{media url=""}}images/beta/cmsimages/job-our-network.png');
+<a href="{{store url='email-to-mail'}}"></a>
+<a href="{{block class='Click2mail\CmsFilter\Block\Protocol' name='protocol'}}://{{block class='Click2mail\CmsFilter\Block\Subdom' name='subdom'}}developers.click2mail.com/" target="_blank"></a>
+

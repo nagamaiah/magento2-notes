@@ -1,0 +1,124 @@
+			Magento Commands
+
+php bin/magento setup:upgrade && php bin/magento setup:static-content:deploy -f && php bin/magento c:f
+
+
+// To check magento version 
+php bin/magento --version
+
+//To install sample data
+php bin/magento sampledata:deploy
+php bin/magento sampledata:remove
+
+php bin/magento setup:upgrade
+php bin/magento setup:static-content:deploy
+sudo php bin/magento setup:static-content:deploy -f
+php bin/magento setup:di:compile
+php bin/magento cache:status
+php bin/magento cache:flush
+php bin/magento cache:clean
+sudo chmod -R 777 var/ generated/ pub/static
+sudo rm -rf var/cache var/generation var/page_cache var/view_preprocessed
+
+
+//To run command forcefully
+php -f bin/magento
+
+//To run command with memory limit 4G
+php -d memory_limit=4G bin/magento
+
+//To run command with max memory limit
+php -d memory_limit=-1 bin/magento
+	
+
+php bin/magento deploy:mode:show
+php bin/magento deploy:mode:set developer
+php bin/magento deploy:mode:set production
+php bin/magento deploy:mode:set default
+
+
+# Enable or disable maintenance mode
+https://experienceleague.adobe.com/docs/commerce-operations/installation-guide/tutorials/maintenance-mode.html?lang=en#:~:text=Use%20the%20magento%20maintenance%20CLI%20command%20to%20enable%20or%20disable%20maintenance%20mode.&text=The%20%2D%2Dip%3D%3Cip%20address,use%20the%20option%20multiple%20times.
+sudo php bin/magento maintenance:status
+sudo php bin/magento maintenance:enable
+sudo php bin/magento maintenance:disable
+# To enable maintenance mode for all clients except 192.0.2.10 and 192.0.2.11
+sudo php bin/magento maintenance:enable --ip=192.0.2.10 --ip=192.0.2.11
+
+php bin/magento module:status
+php bin/magento module:status TestVendor_TestModule
+php bin/magento module:enable TestVendor_TestModule
+php bin/magento module:disable TestVendor_TestModule
+
+
+php bin/magento dev:template-hints:status
+php bin/magento dev:template-hints:enable
+php bin/magento dev:template-hints:disable
+
+All store configurations (path-value)s stored in `core_config_data` table
+system configuration settings command
+php bin/magento config:set dev/debug/debug_logging 1
+php bin/magento config:set [--scope="..."] [--scope-code="..."] [--] <path> <value>
+php bin/magento config:show general/store_information/name
+php bin/magento config:show web/secure/base_url       // returned empty
+php bin/magento config:show web/unsecure/base_url     // returned http://local.magento245.com/
+php bin/magento config:show themes/general/enable_status
+php bin/magento config:show dev/debug/template_hints_storefront
+php bin/magento config:set dev/debug/template_hints_storefront 1
+php bin/magento config:set dev/debug/template_hints_storefront 0
+php bin/magento config:show web/seo/use_rewrites
+php bin/magento config:set catalog/search/engine 'opensearch'
+php bin/magento config:show dev/static/sign
+
+// To change magento 2 admin logout time or session time AND password change settings
+sudo php bin/magento config:show admin/security/session_lifetime
+sudo php bin/magento config:set admin/security/session_lifetime 50000
+sudo php bin/magento config:show admin/security/password_lifetime
+sudo php bin/magento config:set admin/security/password_lifetime ''
+sudo php bin/magento config:set admin/security/password_is_forced 0
+
+
+php bin/magento config:show     // lists all system config keys => values pairs
+
+catalog/search/engine - elasticsearch7
+catalog/search/elasticsearch7_server_hostname - localhost
+catalog/search/elasticsearch7_server_port - 9200
+catalog/category/root_id - 2
+web/seo/use_rewrites - 1
+web/unsecure/base_url - http://local.magento245.com/
+general/locale/code - en_US
+general/locale/timezone - America/New_York
+general/region/display_all - 1
+general/region/state_required - AL,AR,AU,BG,BO,BR,BY,CA,CH,CL,CN,CO,DK,EC,EE,ES,GR,GY,HR,IN,IS,IT,LT,LV,MX,PE,PL,PT,PY,RO,SE,SR,US,UY,VE
+currency/options/base - USD
+currency/options/default - USD
+currency/options/allow - USD
+analytics/subscription/enabled - 1
+crontab/default/jobs/analytics_subscribe/schedule/cron_expr - 0 * * * *
+crontab/default/jobs/analytics_collect_data/schedule/cron_expr - 00 02 * * *
+msp_securitysuite_recaptcha/frontend/enabled - 0
+msp_securitysuite_recaptcha/backend/enabled - 0
+twofactorauth/duo/application_key - Az3tY3XidUbZ6HP74piP5oyKTSCh3yPye4KfbY223tbFLEkN6mWoEK7LP5vwUtvO
+admin/usage/enabled - 1
+dev/debug/template_hints_storefront - 0
+
+
+magento2 indexing cli cmds
+php bin/magento indexer:status -- to check status
+php bin/magento indexer:reset -- to invalidate indexer
+php bin/magento indexer:reindex -- to validate indexer
+
+
+magento 2 admin create command
+php bin/magento admin:user:create --admin-user=admin243 --admin-password=admin243 --admin-firstname=admin243 --admin-lastname=admin243 --admin-email=tester123@gmail.com
+php bin/magento admin:user:unlock
+php bin/magento admin:user:create --admin-user=nag245 --admin-email=nag245@gmail.com --admin-password=nag245 --admin-firstname=nag245 --admin-lastname=nag245
+
+
+
+
+
+
+
+
+

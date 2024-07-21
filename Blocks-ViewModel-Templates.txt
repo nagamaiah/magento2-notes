@@ -1,0 +1,131 @@
+
+
+			Magento Static Pages (page templates, block templates, widgets)
+
+class="Magento\Framework\View\Element\Template" name="login"  template="Blog_Cms::
+{{block class="Magento\Cms\Block\Block" block_id="top_nav"}}
+{{block class="Magento\Framework\View\Element\Template" name="login"  template="login.phtml"}}
+
+echo $block->getLayout()->createBlock(\Magento\Framework\View\Element\Template::class)->setTemplate('customer/myassets/my-joblist.phtml')->toHtml();
+<?php echo $block->getLayout()->createBlock(\Magento\Cms\Block\Block::class)->setBlockId('nav_footer-beta')->toHtml() ?>
+$addreseditblock = $this->getLayout()->createBlock(\Click2mail\Customer\Block\Form\Contact\Edit::class);
+$newsletterblock = $this->getLayout()->createBlock(\Click2mail\Customer\Block\Newsletter::class);
+
+# frontend block core class
+\Magento\Framework\View\Element\Template
+\Magento\Framework\View\Element\Template\Context
+	
+# backend block core class
+\Magento\Backend\Block\Template
+\Magento\Backend\Block\Template\Context
+
+
+$this->block = $this->layout->createBlock(Template::class);
+$this->block->setTemplate("Magento_Backend::dashboard/chart/period.phtml");
+        
+
+/var/www/html/magento-projects/magento245/vendor/magento/module-customer/view/frontend/templates/form/register.phtml
+/var/www/html/magento-projects/magento245/vendor/magento/module-customer/view/frontend/layout/customer_account_create.xml
+
+
+<?= $block->getLayout()
+                ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+                ->setObject($formData)
+                ->setForceUseCustomerAttributes(true)
+                ->toHtml() ?>
+                
+
+/** @var \Magento\Framework\Escaper $escaper */
+action="<?= $escaper->escapeUrl($block->getPostActionUrl()) ?>"
+<span><?= $escaper->escapeHtml(__('Personal Information')) ?></span>
+title="<?= $escaper->escapeHtmlAttr(__('Sign Up for Newsletter')) ?>"
+<span><?= $escaper->escapeHtml(__('Sign Up for Newsletter')) ?></span>
+class="input-text <?= $escaper->escapeHtmlAttr($_streetValidationClass) ?>">
+
+\Magento\Framework\App\View
+\Magento\Framework\View\Layout
+\Magento\Framework\View\Element\Template
+
+
+$viewModel = $this->_objectManager->get(\Click2mail\CookieConsent\ViewModel\ManageCookies::class);
+
+$layoutFactory = $this->_objectManager->get(LayoutFactory::class);
+$output = $layoutFactory->create()
+    ->createBlock(\Magento\Framework\View\Element\Template::class)
+    ->setViewModel($viewModel)
+    ->setTemplate('Click2mail_CookieConsent::manage-cookies.phtml')
+    ->toHtml();
+
+<?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+<?php if ($_dob->isEnabled()): ?>
+    <?= $_dob->setDate($formData->getDob())->toHtml() ?>
+<?php endif ?>
+
+<?php /* Start Custom Changes */ ?>
+<?php if ($myBlock = $block->getChildBlock('my_child_block')): ?>
+    <?php
+        $myBlock->setProduct($_product); 
+        echo $block->getChildHtml('my_child_block', false);
+    ?>
+<?php endif; ?>
+<?php /* End Custom Changes */ ?>
+
+
+<?php
+	if($blockThree =  $block->getChildBlock('block_three')){
+		$three = ["name" => "three", "age"=>3];
+		// dump($blockThree->isEnabled());exit;
+		if($blockThree->isEnabled()){
+			$blockThree->setData("block_three", $three);
+			echo $blockThree->toHtml();	
+		}
+	}
+?>
+
+
+/** @var Raw $rawResult */
+$rawResult = $this->resultFactory->create(ResultFactory::TYPE_RAW);
+return $rawResult->setContents($output);
+    
+
+// Set or Change template file in layout
+<referenceBlock name="copyright">
+    <action method="setTemplate">
+        <argument name="template" xsi:type="string">Dfr_Backend::page/copyright.phtml</argument>
+    </action>
+</referenceBlock>                        
+                
+
+-------------------------------------------------------------------------------------------------------------------------------------
+# What is _construct() method ?
+-- The _construct method was a "Varien invention" used to wrap some initialization logic in models, helpers and blocks.
+-- The _construct() method is implemented by Magento in some classes and it's called automatically inside the __construct function declaration
+	abstract class AbstractResource
+	{
+	    /**
+	     * Main constructor
+	     */
+	    public function __construct()
+	    {
+		/**
+		 * Please override this one instead of overriding real __construct constructor
+		 */
+		$this->_construct();
+	    }
+	}
+-- In a Resource Model or Model Class you should define a _construct() method in order to define the table and the primary_key
+-- It's unusual to change or re-declare the native __construct() method in magento Models/Blocks or Helpers since we always use the Magento factories.
+-- Single underscore construct (_construct) is used to avoid overriding the actual constructor with double underscore (__construct).
+-- Please override this one instead of overriding real __construct constructor
+
+
+                
+
+https://developer.adobe.com/commerce/frontend-core/guide/templates/
+
+                                                
+
+
+
+
+                        

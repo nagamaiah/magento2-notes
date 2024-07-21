@@ -1,0 +1,41 @@
+			Magento Dependency Injection, Preferences, Types and Virtual Types 
+
+
+
+
+# Dependency Injection in Magento 2
+
+1. Creational: These patterns are designed for class instantiation. They can be either class-creation patterns or object-creational patterns.
+2. Structural: These patterns are designed with regard to a class's structure and composition. The main goal of most of these patterns is 
+		to increase the functionality of the class(es) involved, without changing much of its composition.
+3. Behavioral: These patterns are designed depending on how one class communicates with others.
+
+-- DI is a creational design pattern, it allows one objects to declare its dependencies.
+-- In the context of Abstraction concept we shouldn't hard code (or) directly mention concrete class dependencies. 
+   High level classes should use interfaces of low level classes to declare dependencies. This allows for loose coupling 
+
+
+
+# Magento Preferences
+
+-- Magento 2 Preferences is used by the Magento 2 object manager to extend the default implementation. 
+   You can use preferences in Magento 2 to implement some interfaces or to rewrite/override the existing PHP classes and their methods. 
+-- Preferences are used to specify the implementation classes for the interfaces and overriding implementation classes. 
+-- It does not allow to override interface with an interface. 
+-- Then, how can we override the interfaces to send our extra informations over the interface? That's where the beautiful concept comes in - Extensions Attributes.
+-- Extension attributes are new in Magento 2. They are used to extend functionality and often use more complex data types than custom attributes. 
+   These attributes do not appear on the GUI.
+-- It’s also worth noting that the rewriting class has to extend the rewritten class or at least implement the same interface. If the code ever requires ClassThatWillBeRewrited 
+   and we use the ClassThatIsRewriting class which doesn’t extend ClassThatWillBeRewrited, you will get a fatal error linked to the passed argument type.
+
+Note : However, if it is possible, you can use observers or plugins for modifying existing classes logic instead of Magento preference.
+
+
+/var/www/html/magento-projects/magento245/vendor/magento/module-catalog/etc/di.xml
+<preference for="Magento\Catalog\Api\Data\ProductInterface" type="Magento\Catalog\Model\Product" />
+<preference for="Magento\Catalog\Api\ProductRepositoryInterface" type="Magento\Catalog\Model\ProductRepository" />
+
+
+
+
+https://firebearstudio.com/blog/dependency-injection-in-magento-2.html

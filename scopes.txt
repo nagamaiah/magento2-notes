@@ -1,0 +1,103 @@
+
+							Magento Scopes
+
+
+global → website → store → store view.
+
+Website A
+    Store Group B
+        Store View D
+        Store View E            
+    Store Group C
+        Store View F
+        Store View G
+Website B
+    Store Group H
+        Store View I
+        Store View J            
+    Store Group K
+        Store View K
+        Store View L
+Website C
+    //..etc
+
+
+Magento has two run modes
+1. 'Website' run mode -> you bootstrap the system with a specific website code –> that’s the alphanumeric code from store_website table (code field)
+2. 'Store View' run mode -> you’re bootstrapping the system with a specific Store View code –> that’s the alphanumeric code from store table (code field)
+
+
+Database tables are ..
+1. Website     :  store_website
+2. Store Group :  store_group
+3. Store View  :  store
+
+
+SELECT * FROM store_website;
+SELECT * FROM store_group;
+SELECT * FROM store;
+
+
+SELECT * FROM c2m_store_website;
+SELECT * FROM c2m_store_group;
+SELECT * FROM c2m_store;
+
+
+\Magento\Store\Model\ScopeInterface (Define scope type constants)
+
+/**#@+
+     * Scope types
+     */
+    const SCOPE_STORES = 'stores';
+    const SCOPE_GROUPS   = 'groups';
+    const SCOPE_WEBSITES = 'websites';
+
+    const SCOPE_STORE   = 'store';
+    const SCOPE_GROUP   = 'group';
+    const SCOPE_WEBSITE = 'website';
+    /**#@-*/
+
+
+Magento\Store\Model\StoreManagerInterface (getWebsite, getGroup, getStore, getDefaultStoreView, setCurrentStore )
+<preference for="Magento\Store\Model\StoreManagerInterface" type="Magento\Store\Model\StoreManager" />
+
+
+
+
+\Magento\Framework\App\ScopeInterface (get scope code, scope id, scope type, getScopeTypeName, scope name)
+<preference for="Magento\Framework\App\ScopeInterface" type="Magento\Framework\App\ScopeDefault" />
+/**
+     * Default scope reference code
+     */
+    const SCOPE_DEFAULT = 'default';
+
+
+
+Magento\Framework\Config\ScopeInterface (get and set CurrentScope)
+<preference for="Magento\Framework\Config\ScopeInterface" type="Magento\Framework\Config\Scope" />
+1. Get current configuration scope identifier
+	public function getCurrentScope(): string
+2. Set current configuration scope
+	public function setCurrentScope($scope): void
+
+
+
+Magento\Framework\App\Config\ScopeConfigInterface (set and get App scope config values)
+<preference for="Magento\Framework\App\Config\ScopeConfigInterface" type="Magento\Framework\App\Config" />
+
+1. Retrieve config value by path and scope.
+	public function getValue($path, $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null);
+2. Retrieve config flag by path and scope
+	public function isSetFlag($path, $scopeType = ScopeConfigInterface::SCOPE_TYPE_DEFAULT, $scopeCode = null);
+-->   The path through the tree of configuration values, e.g., 'general/store_information/name'
+-->   The scope to use to determine config value, e.g., 'store' or 'default'
+
+
+
+
+
+
+
+https://alanstorm.com/taming-magento-2s-scope/
+https://experienceleague.adobe.com/docs/commerce-admin/config/scope-change.html#set-the-scope
+

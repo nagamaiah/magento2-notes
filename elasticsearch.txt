@@ -1,0 +1,58 @@
+				
+				Magento Elasticsearch
+
+
+
+# Install in ubuntu				
+-- The Elasticsearch components are not available in Ubuntu’s default package repositories. They can, however, be installed with APT after adding Elastic’s package source list.
+-- We will import the Elasticsearch public GPG key and add the Elastic package source list in order to install Elasticsearch.
+
+
+
+
+# Elasticsearch
+-- Elasticsearch uses a RESTful API, which responds to the usual CRUD commands: create, read, update, and delete.
+-- The default Elasticsearch HTTP API port (TCP 9200
+
+
+
+
+
+# Uncomplicate Firewall(ufw)
+-- The Uncomplicated Firewall (ufw) is a frontend for iptables and is particularly well-suited for host-based firewalls.
+-- The default firewall configuration tool for Ubuntu is ufw. Ubuntu’s default firewall is UFW.
+-- Developed to ease iptables firewall configuration, ufw provides a user friendly way to create an IPv4 or IPv6 host-based firewall.
+-- By default UFW is disabled.
+-- ufw (Uncomplicated Firewall) utilizes the power of iptables to create secure firewalls with a very simple syntax.
+-- ufw is especially useful for creating a simple but powerful firewall to protect a simple network or your host system
+
+sudo ufw allow from 198.51.100.0 to any port 9200
+sudo ufw enable
+sudo ufw status
+
+
+
+
+curl -X GET 'http://localhost:9200'
+sudo systemctl enable elasticsearch
+sudo service elasticsearch start
+sudo service elasticsearch status
+
+
+
+
+
+
+
+
+
+
+https://www.digitalocean.com/community/tutorials/how-to-install-and-configure-elasticsearch-on-ubuntu-22-04
+
+
+
+
+
+
+
+

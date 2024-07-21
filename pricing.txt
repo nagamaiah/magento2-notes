@@ -1,0 +1,40 @@
+					Magento Pricing and Types
+					
+
+
+
+
+# MRP : Maximum Retail Price
+-- In the context of retail and consumer goods, it refers to the highest price at which a product can be sold to the end consumer.
+-- This price is usually set by the manufacturer
+
+# MSRP : Manufacturer's Suggested Retail Price (List Price)
+-- MSRP is used to display the suggested retail price set by the manufacturer. This can be used alongside the actual selling price 
+   to highlight discounts or show customers the potential savings.
+-- The list price, also known as the manufacturer's suggested retail price, or the recommended retail price, or the suggested retail 
+   price of a product is the price at which its manufacturer notionally recommends that a retailer sell the product.
+
+# MAP : Minimum Advertised Price
+-- Its the lowest price at which a retailer can advertise a particular product. Set by the manufacturer, MAP pricing helps protect 
+   the brand's value and profits by ensuring that the products cannot be priced below a pre-decided amount.
+--    
+
+
+
+
+-- Advanced pricing can be applied to simple, virtual, downloadable, and bundle products. To apply discounted pricing to other product 
+   types, use a `catalog price rule`. 
+-- Advanced pricing data is synchronized with product pages.
+-- Cost in advanded pricing section is the actual cost of the item.
+--    
+
+
+
+
+
+
+
+
+https://experienceleague.adobe.com/docs/commerce-admin/catalog/products/pricing/pricing-advanced.html?lang=en
+https://webkul.com/blog/advanced-pricing-in-magento2/
+https://promagento.org/2022/08/pricing-types-and-how-pricing-works-in-magento2/					

@@ -1,0 +1,22 @@
+
+-- In magento indexer state management table is 'indexer_state'
+-- It stores indexer state like valid or invalid
+   select * from magento245.indexer_state;
+
+-- To check indexer status
+   php bin/magento indexer:status
+
+-- To invalidate indexer
+   php bin/magento indexer:reset
+   
+-- To validate indexer
+   php bin/magento indexer:reindex
+
+-- We can update indexer using two methods
+   Update on save (or) Update on schedule
+
+
+show tables like "%mview%";
+
+select * from indexer_state;
+select * from mview_state;

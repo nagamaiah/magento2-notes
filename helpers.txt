@@ -1,0 +1,49 @@
+				Magento Helper Classes
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------------------------------------
+# What is _construct() method ?
+-- The _construct method was a "Varien invention" used to wrap some initialization logic in models, helpers and blocks.
+-- The _construct() method is implemented by Magento in some classes and it's called automatically inside the __construct function declaration
+	abstract class AbstractResource
+	{
+	    /**
+	     * Main constructor
+	     */
+	    public function __construct()
+	    {
+		/**
+		 * Please override this one instead of overriding real __construct constructor
+		 */
+		$this->_construct();
+	    }
+	}
+-- In a Resource Model or Model Class you should define a _construct() method in order to define the table and the primary_key
+-- It's unusual to change or re-declare the native __construct() method in magento Models/Blocks or Helpers since we always use the Magento factories.
+-- Single underscore construct (_construct) is used to avoid overriding the actual constructor with double underscore (__construct).
+-- Please override this one instead of overriding real __construct constructor				

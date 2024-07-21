@@ -1,0 +1,20 @@
+
+			Magento-Customer/Customer-Session/Core-Session
+
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$customerSession = $objectManager->create(‘Magento\Customer\Model\Session’);
+if($customerSession->isLoggedIn()) { //customer is loggedin or not
+$customerSession->getCustomer()->getName(); //Loggedin customer Name19:49 13-02-2020
+$customerSession->getCustomer()->getEmail(); //Loggedin customer Email
+//print_r($customerSession->getCustomer()->getData());
+
+$coreSession = $objectManager->get(\Magento\Framework\Session\SessionManagerInterface::class);
+$stat = $objectManager->get(\Magento\Store\Model\StoreManagerInterface::class)->getStore()->isCurrentlySecure();
+$customer =  $objectManager->get(\Magento\Customer\Model\Session::class)->getCustomer()->getData();
+
+
+
+public function getCustomer()
+{
+  return $this->customerRepository->getById($this->_customerSession->getCustomerId());
+}

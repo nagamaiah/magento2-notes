@@ -1,0 +1,33 @@
+
+
+# Adobe Commerce and Magento Open Source routing uses the following flow:
+ 
+ 	pub/index.php -> Bootstrap -> Application -> Front Controller -> Routing -> Controller Action
+
+	Controller -> Layout Handle -> Block -> Template file
+
+# Magento 2 Request Flow
+
+-- Web root page location in magento is pub/index.php. This is file that gets triggered when user hits url in browser (or) make a request
+-- In pub/index.php file, using bootstrapping process we CREATE the application instance and RUN application
+	$bootstrap->run($app);  // vendor/magento/framework/App/Bootstrap.php
+-- In bootstrap class run method, launch method called on app instance which returns response
+	$response = $application->launch(); // vendor/magento/framework/App/Http.php	
+-- In application instance in launch method FrontController will dispatch a request which gives result response.
+   Result response should be instanceof \Magento\Framework\App\Response\HttpInterface (or) \Magento\Framework\Controller\ResultInterface otherwise
+   `Invalid return type` exception will be returned.
+   		$frontController = $this->_objectManager->get(\Magento\Framework\App\FrontControllerInterface::class);
+	        $result = $frontController->dispatch($this->_request);
+-- In frontcontroller dispatch method, we check for route match in routerList (\Magento\Framework\App\RouterInterface). 
+   If request route is matched it will give you actionInstance, futher processRequest using actionInstance and request 
+		$actionInstance = $router->match($request);
+                    if ($actionInstance) {
+                        $result = $this->processRequest(
+                            $request,
+                            $actionInstance
+                        );
+                        break;
+                    }
+-- If request route match not found `noroute` route will be returned
+	$request->setActionName('noroute');
+

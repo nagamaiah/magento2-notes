@@ -1,0 +1,14 @@
+			Magento Theme
+
+-- To customize our website styles means look of the website, you need to create (or) install a custom design theme.
+-- <magento_root>/app/design/frontend/<vendor>/<theme>   (or)
+-- <magento_root>/app/design/adminhtml/<vendor>/<theme>
+
+
+
+
+
+
+
+
+https://www.thecoachsmb.com/theme-development-tutorial-step-by-step/

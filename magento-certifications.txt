@@ -1,0 +1,173 @@
+					Adobe Commerce Certifications
+					_____________________________
+		
+			
+ /** AD0-E717 :: (Adobe Certified Professional - Adobe Commerce Developer) */
+
+
+### Topics for AD0-E717
+
+1. Working with Admin (5%):  Access Control Lists (ACL), Admin grids/forms, and store/admin configurations.
+
+2. Architecture (29%): Magento's file structure, CLI commands, cron jobs, di.xml, controller creation, 
+   module structure, indexing, localization, plugins, preferences, event observers, interceptors, 
+   custom module routes, URL rewrites, caching systems, and store structures.
+
+3. EAV/Database (13%): Attribute sets/attributes, different attribute types, database table alterations, models, resource models, collections, and the basics of EAV.
+
+4. Layout/UI (15%): Product types, catalog entities, index management, and the impact of multi-source inventory on stock.
+
+5. Checkout and Sales (8%): Cart components, promo rules, checkout modifications, quote data, payment and shipping methods, tax rules, and currencies.
+
+6. Catalog (8%): Category management, product types, price rules, and price types.
+
+7. Adobe Commerce Cloud Architecture (12%): Architecture/environment workflow, cloud project files, services, log access, patch applications, ECE tools maintenance, and support protocols.
+
+8. Setup/Configuring Adobe Commerce Cloud (4%): Cloud setup, troubleshooting, user management, environment management, branching, and cloud plan capabilities.
+
+9. Commerce Cloud CLI Tool (Managing Part) (6%): CLI tool features, environment management, and cloud services.
+
+
+
+Exam objectives and scope
+This section provides information on the exam content.
+
+#Section 1: Working with Admin (5%)
+Describe how the ACL works with roles and resources
+Identify the components to use when creating or modifying the admin grid/form
+Identify the files to use when creating a store/admin config and menu items
+
+Section 2: Architecture (29%)
+Describe Magento file structure
+Describe Magento CLI commands
+Describe cron functionality
+Given a scenario, describe usage of the di.xml
+Given a scenario, create controllers
+Describe module structure
+Describe index functionality
+Describe localization
+Describe plugin, preference, event observers, and interceptors
+Describe custom module routes
+Describe URL rewrites
+Describe the Magento caching system
+Describe stores, websites, and store views (basic understanding)
+
+Section 3: EAV/database (13%)
+Given a scenario, change/add/remove attribute sets and/or attributes
+Describe different types of attributes
+Given a scenario, use a DB schema to alter a database table
+Describe models, resource models, and collections
+Describe basics of Entity Attribute Value (EAV)
+
+Section 4: Layout/UI (15%)
+Apply changes to existing product types and create new ones
+Modify and extend existing Catalog entities
+Demonstrate the ability to manage Indexes and customize price output
+Explain how multi-source inventory impacts stock (program level)
+
+Section 5: Checkout and sales (8%)
+Describe cart components
+Describe a cart promo rule
+Given a scenario, describe basic checkout modifications
+Given a scenario, describe basic usage of quote data
+Given a scenario, configure the payment and shipping methods
+Given a scenario, configure tax rules, currencies, cart, and/or checkout
+
+Section 6: Catalog(8%)
+Identify the basics of category management and products management
+Describe product types
+Describe price rules
+Describe price types
+
+Section 7: Adobe Commerce Cloud architecture (12%)
+Define Adobe Commerce architecture/environment workflow
+Describe cloud project files, permission, and structure
+List services available on Adobe Commerce on Cloud
+Describe how to access different types of logs
+Describe steps for applying patches (Identify which folder to put patches in)
+Describe how to Maintain and upgrade ECE tools
+Identify when to call support *Yaml files and limitations (DIY vs Support tickets)
+
+Section 8: Setup/Configuring Adobe Commerce Cloud (4%)
+Identify how to setup/configure Adobe Commerce Cloud
+Define Basic Cloud troubleshooting (Hierarchy of web UI and variables, configurations precedence)
+Recognize basic knowledge of cloud user management and onboarding UI
+Describe environment Management using UI
+Describe branching using UI
+Identify Adobe commerce Cloud Plan capabilities
+
+Section 9: Commerce Cloud CLI tool (Managing part) (6%)
+Describe exclusive features of Adobe Commerce Cloud CLI tool (CLI exclusive features: activate emails, rebase environments, snapshot, db dump, local environment setup)
+Describe branching using the Adobe Commerce Cloud CLI tool
+Identify ways to connect to cloud services? (My SQL, Redis, tunnel:info)
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+
+ /** AD0-E721 :: (Adobe Certified Professional - Adobe Commerce Frontend Developer) */
+
+
+### Topics for AD0-E721
+
+Section 1: Theme management (Theme hierarchy, image configuration, translations) (14%)
+
+Describe Adobe Commerce theme folder structure
+Demonstrate ability to create new or extend existing themes
+Demonstrate ability to add custom translation phrases
+Section 2: Layout XML & templates (30%)
+
+Demonstrate the ability to work with basic layout XML instructions
+Demonstrate the ability to use existing page layouts
+Describe the steps for extending and overriding XML
+Demonstrate ability to create and customize templates
+Describe template security (escaping output)
+Section 3: Styles (22%)
+
+Describe the purpose of styles-m.less, styles-l.less, print.less
+Describe the difference between specific partial files (_extends.less,_extend.less,_theme.less,_widgets.less,_module.less)
+Given a scenario, demonstrate the ability to override or extend Magento LESS
+Describe the basic concepts of LESS
+Explain the hierarchy of styles ( lib, modules, themes)
+Explain client-side and server-side compilation
+Section 4: JavaScript (18%)
+
+Demonstrate the ability to initialize and call JavaScript components
+Demonstrate the usage of RequireJS
+Describe the usage of mixins
+Describe how to add a translation in JS
+Describe the usage of Knockout JS
+Describe the usage of jQuery widgets
+Section 5: Admin configuration and PageBuilder (6%)
+
+Demonstrate the ability to customize Page Builder and CMS content"
+Apply/schedule a theme to a specific scope (website, store, store-view)
+Apply design changes to categories, products and CMS pages using admin configuration
+Describe steps to customize transactional emails
+Section 6: Tools (CLI and Grunt) (8%)
+
+Describe the usage of basic bin/magento commands
+Describe the usage of Composer commands (install, update, require, remove)
+Differentiate the appropriate use case for deploy modes
+Describe additional tools that cloud provides (Fastly, downloading database, content deployment)
+
+----------------------------------------------------------------------------------------------------------------------------------------------
+https://experienceleague.adobe.com/docs/certification/program/technical-certifications/ac/ac-professional/ac-p-developer.html?lang=en
+
+
+https://www.linkedin.com/pulse/complete-guide-magento-2-certification-list-shail-sanghvi
+https://elogic.co/blog/magento-certifications/
+
+
+
+
+
+
+https://experienceleague.adobe.com/docs/certification/program/technical-certifications/ac/ac-professional/ac-p-developer.html?lang=en
+
+https://github.com/magento-notes/magento2-exam-notes
+https://github.com/magento-notes/magento2-cloud-developer-notes/tree/master
+
+https://experienceleague.adobe.com/docs/certification/program/technical-certifications/ac/ac-overview.html?lang=en
+https://solutionpartners.adobe.com/solution-partners/training_and_certification/certification.html
+https://solutionpartners.adobe.com/solution-partners.html
+
+

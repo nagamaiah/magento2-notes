@@ -1,0 +1,77 @@
+	Magento Articals
+	
+	
+install magento 243 on ubuntu
+https://www.thecoachsmb.com/install-magento-2-4-5-on-ubuntu-22-04-complete-guide/
+
+https://experienceleague.adobe.com/docs/commerce-cloud-service/user-guide/overview.html?lang=en
+
+https://amasty.com/blog/fix-common-issues-magento2/
+
+https://magento.stackexchange.com/questions/114929/deprecated-save-and-load-methods-in-abstract-model
+
+https://inchoo.net/magento-2/magento-2-logging/
+https://magento.stackexchange.com/questions/119992/exception-handling-in-magento-2
+
+
+
+https://webkul.com/blog/magento2-service-contract/
+https://webkul.com/blog/magento2-custom-rest-api/
+
+
+https://github.com/aleron75/mageres
+
+
+Service Contracts
+https://developer.adobe.com/commerce/php/development/components/service-contracts/
+https://developer.adobe.com/commerce/php/development/components/service-contracts/design-patterns/
+
+magento api --> https://www.scommerce-mage.com/blog/magento-2-how-to-create-custom-api.html
+		https://inchoo.net/magento-2/magento-2-custom-api/
+https://webkul.com/blog/magento2-service-contract/
+https://webkul.com/blog/magento2-custom-rest-api/
+https://magently.com/blog/creating-custom-rest-api-endpoints-in-magento/
+
+https://inchoo.net/magento-2/magento-2-custom-api/
+https://bsscommerce.com/confluence/magento-2-design-patterns/#:~:text=The%20Magento%202%20Dependency%20Injection,B%20can%20use%20those%20dependencies.
+https://subscription.packtpub.com/book/web-development/9781789343441/1/ch01lvl1sec09/dependency-injection
+
+
+
+Certifications
+
+1. Adobe Certified Professional - Magento Commerce Developer
+2. Adobe Certified Expert - Magento Commerce Developer
+3. Adobe Certified Master - Magento Commerce Architect
+
+https://magento.stackexchange.com/questions/112052/magento-2-how-to-get-certification-of-magento-2
+https://express.adobe.com/page/WBhc2rZlIxtWC/
+
+
+
+### Magento upgrade 2.4.3 to 2.4.4  :::
+https://magento.stackexchange.com/questions/354947/what-is-the-process-of-upgrade-magento-2-4-2-to-2-4-4
+https://www.mgt-commerce.com/tutorial/how-to-upgrade-magento-2-4-3-to-magento-2-4-4/
+
+
+ php bin/magento maintenance:enable
+
+ take composer.json file backup
+ composer remove magento/product-community-edition --no-update
+ 
+ 
+ composer require magento/product-community-edition=2.4.4 --no-update
+ composer update
+
+ rm -rf var/cache/*
+ rm -rf var/page_cache/*
+ rm -rf generated/code/*
+rm -rf var/cache/* var/page_cache/* generated/code/*
+
+
+ php bin/magento setup:upgrade (or) php bin/magento s:up
+ php bin/magento setup:static-content:deploy -f  (or) php bin/magento s:s:d -f
+ php bin/magento index:reindex (or) php bin/magento in:rein
+ php bin/magento c:c
+
+ php bin/magento maintenance:disable 

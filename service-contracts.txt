@@ -1,0 +1,53 @@
+				Magento 2 Service Contracts
+
+-- A service contract is a set of PHP interfaces that is defined by a module. This contract comprises data interfaces and service interfaces.
+
+-- The role of the data interface is to preserve data integrity, while the role of the service interface is to hide the business 
+   logic details from service consumers.
+
+-- Data interfaces define various functions, such as validation, entity information, search related functions, and so on. They are defined 
+   within the Api/Data directory of an individual module.
+   
+-- Service interfaces are the ones that include management, repository, and metadata interfaces. These interfaces are defined directly 
+   within the module's Api directory.
+   
+
+
+## Service Contracts
+1. Data Interfaces -> Api/Data
+2. Service Interfaces -> Api/
+   a. 
+   b. 
+   c. 
+    
+    
+    
+    
+
+
+
+
+
+
+
+https://webkul.com/blog/magento2-service-contract/
+https://webkul.com/blog/magento2-custom-rest-api/
+
+
+https://github.com/aleron75/mageres
+
+
+Service Contracts
+https://developer.adobe.com/commerce/php/development/components/service-contracts/
+https://developer.adobe.com/commerce/php/development/components/service-contracts/design-patterns/
+
+magento api --> https://www.scommerce-mage.com/blog/magento-2-how-to-create-custom-api.html
+        https://inchoo.net/magento-2/magento-2-custom-api/
+https://webkul.com/blog/magento2-service-contract/
+https://webkul.com/blog/magento2-custom-rest-api/
+https://magently.com/blog/creating-custom-rest-api-endpoints-in-magento/
+
+https://inchoo.net/magento-2/magento-2-custom-api/
+
+
+    

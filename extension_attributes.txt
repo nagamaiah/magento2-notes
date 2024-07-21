@@ -1,0 +1,24 @@
+			Magento 2 Extension Attributes
+
+
+-- 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://developer.adobe.com/commerce/php/tutorials/frontend/custom-checkout/add-address-field/
+
+https://aureatelabs.com/blog/what-is-the-purpose-of-extension-attributes-in-magento-2/
+https://webkul.com/blog/how-to-join-extension-attribute-in-magento-2/
+https://developer.adobe.com/commerce/php/development/components/add-attributes/
+https://www.magentoassociation.org/commerce-co-op/full-article/magento-fundamentals-part-5-what-are-the-differences-between-custom-and-extension-attributes			

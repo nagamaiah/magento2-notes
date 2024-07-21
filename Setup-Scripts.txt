@@ -1,0 +1,121 @@
+				Magento 2 Setup Scripts (Install and Upgrade scripts)
+
+-- To enable custom module manually in Magento 2, two commands needs to be executed from the shell:
+	php bin/magento module:enable Inchoo_Custom
+	php bin/magento setup:upgrade
+-- First command adds your module to the modules list in app/etc/config.php (and crashes M2 until you run second command)
+
+-- To uninstall a module. module uninstall script (Setup/Uninstall.php) is executed and whole module gets deleted afterwards. Only modules installed through 
+   Composer can be uninstalled.
+	php bin/magento module:uninstall Temando_ShippingRemover
+	temando/module-shipping-m2
+
+-- To simplify, in Magento 2 you can have 6 different Setup classes in your module:
+	Setup/InstallSchema
+	Setup/UpgradeSchema
+	Setup/InstallData
+	Setup/UpgradeData
+	Setup/Recurring
+	Setup/Uninstall
+-- For the reference, all mentioned installer logic is located at /setup/src/Magento/Setup/
+
+
+-- Setup scripts are used to perform some actions on data or table while installing or upgrading module.
+-- Setup scripts files are created path
+	app/code/Vendor/Module/Setup
+-- Contains following files 
+
+1) InstallSchema.php
+-- To change table structure and create a new table.
+-- This file is executed on installation of module.
+
+
+2) UpgradeSchema.php
+-- This file is used to update table structure or to create a new table.
+-- This file is get executed whenever your module is installing or upgrading.
+-- It will get execute on each version upgradation.
+
+
+3) InstallData.php
+-- Used to add data in tables which are already created in your magento.
+
+
+4) UpgradeData.php
+-- Used to add data or update data in tables which are already created in your magento.
+-- For example you can update any existing product’s name or you can create a new product, or can update product’s attribute data.
+-- This gets executed when your module is installing or upgrading. This file executed after Install Data.
+
+5) Recurring.php
+-- This file is used when you want to add some functionality after each module installation.
+-- Recurruing.php file get executed on each time either module’s version updated or not.
+-- Magento implements the RecurringData class after every stage of data installation or upgrade. This class performs final modifications 
+   to the database repository after the data has been installed or updated.
+
+6) Uninstall.php
+-- This file is executed when magento module:uninstall get executed.
+-- By this file All the tables and table’s data and files are deleted related to the specific module.
+-- This Uninstall works only on those modules which are composer dependent.
+
+
+-- Setup scripts are triggered using magento 2 cli commands
+   php bin/magento setup:upgrade -- Runs schema and data changes combined
+   php bin/magento setup:db-schema:upgrade -- Runs schema changes only
+   php bin/magento setup:db-data:upgrade -- Runs data changes only
+
+# Upgrade files only run when the version of the module changes.
+
+# Check Magento\Framework\DB\Ddl\Table.php class for all available install setup scripts methods 
+-- Use addColumn($name, $type, $size = null, $options = [], $comment = null) method to add new column
+
+
+# Check Magento\Framework\DB\Adapter\Pdo\Mysql.php class for all available upgrade setup scripts methods 
+-- Use addColumn($tableName, $columnName, $definition, $schemaName = null)   method to add new column to existing table
+-- Use tableColumnExists($tableName, $columnName, $schemaName = null) method to check for table column
+
+-- \Magento\Framework\DB\Adapte\AdapterInterface
+
+$setup->getConnection()->createTable()
+$setup->getConnection()->newTable()
+$setup->getTable('sales_order')
+$setup->getConnection()->newTable()->addColumn($name, $type, $size = null, $options = [], $comment = null) -->  To add column to new table
+$setup->getConnection()->addColumn($tableName, $columnName, $definition, $schemaName = null)  -->  To add column to existing table
+$setup->getConnection()->insert()
+$setup->getConnection()->query()
+$setup->getConnection()->modifyColumn()  ->  Modify the column definition
+$setup->getConnection()->changeColumn()  ->  Change the column name and definition
+$setup->getConnection()->dropColumn()  ->  Delete table column
+
+$setup->getConnection()->insert($table, $bind);
+$connection->insertMultiple($table, $data);
+$connection->update($table, $data, 'user_id = 2');
+$connection->delete($table, 'user_id in (3,4)');
+
+
+
+#  In Magento 2.3.x and later versions, magento also provided the functionality to create a new table using Declarative Schema. 
+
+
+
+
+https://webkul.com/blog/setup-script-files-magento2
+https://inviqa.com/blog/using-setup-scripts-magento-2
+https://inchoo.net/magento-2/setup-scripts-magento-2
+
+https://www.thecoachsmb.com/how-to-add-an-extra-column-in-your-existing-magento-2-table/
+https://www.thecoachsmb.com/how-to-create-a-custom-database-table-in-magento-2/
+
+https://webkul.com/blog/how-to-create-a-new-database-table-in-magento-2-0/
+https://webkul.com/blog/magento2-how-to-create-product-custom-attribute-from-installer-in-custom-module/
+
+
+
+
+
+
+
+
+
+
+
+
+				

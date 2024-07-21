@@ -1,0 +1,293 @@
+			Magento Model, Resource Model and Collection
+
+
+A. Model 
+1. Model file extends \Magento\Framework\Model\AbstractModel  and can implement DataInterfaces
+2. Model file contains _construct() method which will _init ResourceModel. And also contains setters and getters of entity
+	    public function _construct()
+	    {
+		$this->_init(\ApiVendor\CrudModule\Model\ResourceModel\Company::class);
+	    }  
+3. AbstractModel file extends \Magento\Framework\DataObject which responsible for set and get data. 
+4. AbstractModel contains following methods
+   getIdFieldName()
+   getId()
+   getData()
+   setData()
+   hasData()
+   getResourceName()
+   getResourceCollection()
+   load()
+   save() -- deprecated
+   delete()
+   
+
+-----------------------------------------------------------------------------------------------------------------------------
+B. Resource Model 
+1. Resoruce Model extends Magento\Framework\Model\ResourceModel\Db\AbstractDb
+2. Contains _construct() method which will call _init() method that defines main table and entity id
+	    protected function _construct()
+	    {
+		$this->_init('company_details', 'company_id');
+	    }
+3. The sudo _construct() method is called in the parent __construct() method. 
+4. The _init() method is responsible for setMainTable and primary key field.
+5. AbstractDb contains following methods
+   load()
+   save()
+   delete()
+   getConnection()
+   getIdFieldName()
+   getMainTable()
+
+-- Magento’s object manager encounters a class name that ends in the word ‘Factory’, it will automatically generate the Factory 
+   class in the var/generation folder if the class does not already exist.
+   	var/generation/<vendor_name>/<module_name>/Model/PostFactory.php
+-- Resoruce Model files handle the interaction with the database or data storage backend for the corresponding models. These classes abstract 
+   the database operations and provide a convenient interface for CRUD (Create, Read, Update, Delete) operations on the associated entities.  
+
+-- We have to use resource models fol all persistence realted operations.
+------------------------------------------------------------------------------------------------------------------------------
+C. Collection (Multiple instances of model , all rows of table)
+1. Collection file extends Magento\Framework\Model\ResourceModel\Db\Collection\AbstractCollection 
+2. Contains _construct() method which will define model and resource model
+    protected function _construct()
+    {
+        $this->_init(\ApiVendor\CrudModule\Model\Company::class, \ApiVendor\CrudModule\Model\ResourceModel\Company::class);
+    }
+-- Model collection files define collections of entities. Collections provide a way to work with sets of data or multiple instances of a model simultaneously. 
+-- These classes offer methods for querying, filtering, and manipulating groups of records from the database.
+-- AbstractCollection contains following methods
+   1. getMainTable()
+   2. getSelect()
+   3. addFieldToSelect()
+   4. addExpressionFieldToSelect()
+   5. getTable()
+   6. join()
+   7. save()
+   8. getIdFieldName()
+   9. getConnection()
+   10. getSize()
+   11. getSelectSql()
+   12. setOrder()
+   13. addFieldToFilter()
+   14. distinct()
+   15. load()
+   16. getData()
+   17. getPageSize()
+   18. getFirstItem()
+   19. getLastItem()
+   20. getItems()
+   21. setOrder()
+   23. count()
+
+  
+
+/**
+     * Build SQL statement for condition
+     *
+     * If $condition integer or string - exact value will be filtered ('eq' condition)
+     *
+     * If $condition is array - one of the following structures is expected:
+     * - array("from" => $fromValue, "to" => $toValue)
+     * - array("eq" => $equalValue)
+     * - array("neq" => $notEqualValue)
+     * - array("like" => $likeValue)
+     * - array("in" => array($inValues))
+     * - array("nin" => array($notInValues))
+     * - array("notnull" => $valueIsNotNull)
+     * - array("null" => $valueIsNull)
+     * - array("moreq" => $moreOrEqualValue)
+     * - array("gt" => $greaterValue)
+     * - array("lt" => $lessValue)
+     * - array("gteq" => $greaterOrEqualValue)
+     * - array("lteq" => $lessOrEqualValue)
+     * - array("finset" => $valueInSet)
+     * - array("regexp" => $regularExpression)
+     * - array("seq" => $stringValue)
+     * - array("sneq" => $stringValue)
+     *
+     * If non matched - sequential array is expected and OR conditions
+     * will be built using above mentioned structure
+     *
+     * @param string $fieldName
+     * @param integer|string|array $condition
+     * @return string
+     */
+     
+     
+     
+-- addAttributeToFilter() is used to filter EAV collections.
+-- addFieldToFilter() is used to filter Non-EAV collections.
+
+
+--------------------------------------------------------------------------------------
+# How to get resource or database connection in magento 2? Insert multiple records using resource connection ?
+https://magento.stackexchange.com/questions/228593/get-database-connection-in-magento-2
+https://devhooks.in/blog/how-to-insert-multiple-records-using-resource-connection-in-magento
+https://www.rohanhapani.com/how-to-use-the-fetchone-method-with-sql-query-in-magento-2/
+https://meetanshi.com/blog/run-direct-sql-query-in-magento-2/
+https://www.jyotiranjan.in/blog/how-to-write-a-fetchrow-method-of-mysql-query-in-magento-2/
+
+-- \Magento\Framework\App\ResourceConnection (implements Magento\Framework\DB\Adapter\AdapterInterface) class will give you db connection instance. 
+   And you can run mysql queries using resource connection.
+-- If you work with Magento 2 and need to insert multiple records into a database table, the ResourceConnection class is a useful tool that 
+   simplifies the process. This class enables you to connect to a database and execute various database operations.   
+      
+-- Query examples
+	$objectManager = \Magento\Framework\App\ObjectManager::getInstance(); // Instance of object manager
+	$resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+	$connection = $resource->getConnection();
+	$tableName = $resource->getTableName('employee');
+   1. Select Data from table
+   	$sql = "Select * FROM " . $tableName;
+	$result = $connection->fetchAll($sql); // gives associated array, table fields as key in array.	
+   2. Insert Data into table
+   	$sql = "Insert Into " . $tableName . " (emp_id, emp_name, emp_code, emp_salary) Values ('','XYZ','ABD20','50000')";
+	$connection->query($sql);
+   3. Update Data into table
+	$sql = "Update " . $tableName . "Set emp_salary = 20000 where emp_id = 12";
+	$connection->query($sql);
+   4. Delete Data from table
+   	$sql = "Delete FROM " . $tableName." Where emp_id = 10";
+	$connection->query($sql);
+   5. Insert Multiple Records
+   	$connection = $this->resourceConnection->getConnection();
+        $tableName = $connection->getTableName('your_table_name');
+        $data = [
+		    ['column1' => 'Value1', 'column2' => 'Value2'],
+		    ['column1' => 'Value3', 'column2' => 'Value4'],
+		];
+        $connection->insertMultiple($tableName, $data);	
+        $data should be an array of associative arrays, where each associative array represents a record to be inserted.
+   6. Get single record
+   	 $tableName = $this->resourceConnection->getTableName('catalog_product_entity');
+        $connection = $this->resourceConnection->getConnection();
+        $sku = '24-MB01';
+        $select = $connection->select()
+            ->from(
+                ['c' => $tableName],
+                ['*']
+            )
+            ->where(
+                "c.sku = :sku"
+            );
+        $bind = ['sku' => $sku];
+        return $connection->fetchOne($select, $bind);
+        
+        $bind = ['store_id' => $id];
+        $query = $connection
+            ->select()
+            ->from(
+                ['main_table' => $tableName],
+                ['entity_id','email']
+            )
+            ->where('store_id = :store_id');
+        return $connection->fetchRow($query, $bind);
+        
+-- Below code will be useful when you want to work from Magento 2 root directory
+	<?php  
+	    ini_set('display_errors', 1);
+	    ini_set('display_startup_errors', 1);
+	    ini_set('memory_limit', '5G');
+	    error_reporting(E_ALL);
+
+	    use Magento\Framework\App\Bootstrap;
+	    require __DIR__ . '/app/bootstrap.php';
+
+	    $bootstrap = Bootstrap::create(BP, $_SERVER);
+
+	    $objectManager = $bootstrap->getObjectManager();
+
+	    $state = $objectManager->get('Magento\Framework\App\State');
+	    $state->setAreaCode('frontend');
+
+	    $resource = $objectManager->get('Magento\Framework\App\ResourceConnection');
+	    $connection = $resource->getConnection();
+	    $tableName = $resource->getTableName('setup_module'); //gives table name with prefix
+	    //$moduleName = "Your_Module";
+	    $sql = "Delete FROM " . $tableName." Where module = 'Your_Module'";
+	    $connection->query($sql);
+	    echo "Your_Module entry deleted.";
+	 ?>
+
+# what are cache tags in models ?
+-- 
+
+
+
+
+
+
+
+
+# What is the role of \Magento\Framework\DataObject class in magento 2 ?
+
+
+
+
+# What is _construct() method ?
+-- The _construct method was a "Varien invention" used to wrap some initialization logic in models, helpers and blocks.
+-- The _construct() method is implemented by Magento in some classes and it's called automatically inside the __construct function declaration
+	abstract class AbstractResource
+	{
+	    /**
+	     * Main constructor
+	     */
+	    public function __construct()
+	    {
+		/**
+		 * Please override this one instead of overriding real __construct constructor
+		 */
+		$this->_construct();
+	    }
+	}
+-- In a Resource Model or Model Class you should define a _construct() method in order to define the table and the primary_key
+-- It's unusual to change or re-declare the native __construct() method in magento Models/Blocks or Helpers since we always use the Magento factories.
+-- Single underscore construct (_construct) is used to avoid overriding the actual constructor with double underscore (__construct).
+-- Please override this one instead of overriding real __construct constructor
+
+
+# Two techniques to get the collection data in sort order on magento 2 ?
+1. Using Collections:
+$collection = $this->yourEntityCollectionFactory->create();
+$collection->addFieldToSelect('*');
+$collection->setOrder('your_field', 'ASC'); // or 'DESC' for descending order
+return $collection->getData();
+
+2. Using SQL Queries:
+use Magento\Framework\App\ResourceConnection;
+$connection = $this->resourceConnection->getConnection();
+$tableName = $this->resourceConnection->getTableName('your_table'); // replace 'your_table' with the actual table name
+$select = $connection->select()->from($tableName)->order('your_field ASC'); // or 'DESC' for descending order
+return $connection->fetchAll($select);
+
+# Examples:
+
+$giftColletion = $this->_giftFactory->getCollection();
+$giftColletion->addFieldToFilter('store_id', 1);
+$giftColletion->setOrder('position','ASC');
+
+$page = ($this->getRequest()->getParam('p')) ? $this->getRequest()->getParam('p') : 1;
+$pageSize = 10;
+$allMagazines = $this->MagazineFactory->create()->getCollection();
+$allMagazines->addFieldToFilter('is_enable', 1);
+$allMagazines->setOrder('sort_order','ASC');
+$allMagazines->setPageSize($pageSize);
+$allMagazines->setCurPage($page);
+return $allMagazines;
+
+
+
+
+
+
+
+
+
+
+https://webkul.com/blog/magento-development-08-filter-and-sorting/
+https://m.academy/article/multiple-collections-magento-2-factory-create-clear-reset-clone/
+
+
+

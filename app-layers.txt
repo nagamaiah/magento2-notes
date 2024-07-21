@@ -1,0 +1,14 @@
+			Magento Layers
+
+Magento 2 Architecture can be divided into the following layers:
+	1. Presentation layer
+	2. Service layer
+	3. Domain layer
+	4. Persistence layer
+
+
+
+
+
+https://www.oscprofessionals.com/blog/understanding-different-layers-of-magento-module-development/
+https://developer.adobe.com/commerce/php/architecture/layers/

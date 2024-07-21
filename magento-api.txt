@@ -1,0 +1,99 @@
+		Magento 2 Rest Api
+		
+		
+-- Magento 2 api get customer access token
+   GET request ->  http://local.magento246.com/rest/V1/integration/customer/token
+   {
+    "username": "test123@gmail.com",
+    "password": "Test1234"
+   }
+   Use result token as bearer auth token
+   
+-- Magento 2 api get admin access token
+   GET request -> http://local.magento246.com/rest/V1/integration/admin/token
+   {
+    "username": "admin",
+    "password": "admin123"
+   }
+   Use result token as bearer auth token
+
+-- Get Logged in Customer Details and Addresses by Rest API
+   GET request -> http://local.magento246.com/rest/V1/customers/me
+   Provide customer access token
+   Authorization: Bearer <CUSTOMER_TOKEN>
+   
+-- Customer searchCriteria  by customer-specific fields using "Search Criteria Builder"
+   GET request -> http://local.magento246.com/rest/V1/customers/search?searchCriteria[filterGroups][0][filters][0][field]=email&searchCriteria[filterGroups][0][filters][0][value]=test123@gmail.com&searchCriteria[filterGroups][0][filters][0][conditionType]=eq)
+   Provide admin access token
+   Authorization: Bearer <ADMIN_TOKEN>
+   
+-- Get customer details and addresses with id
+   GET request -> http://local.magento246.com/rest/V1/customers/{customer_id}   
+   Provide admin access token
+   Authorization: Bearer <ADMIN_TOKEN>
+
+
+
+
+
+
+
+
+
+
+
+
+Get and Post shipping-information 
+http://magento-host/index.php/rest/V1/carts/mine/shipping-information
+
+Get and Post billing-information 
+http://magento-host/index.php/rest/V1/carts/mine/billing-information
+
+Get and Post payment-information
+http://magento-host/index.php/rest/V1/carts/mine/payment-information
+
+
+
+
+
+
+
+
+<?php
+$url = "http://magento246.docker/index.php/rest";
+$token_url = $url."/V1/integration/admin/token";
+$username = "admin";
+$password = "admin123";
+//Authentication rest API magento2, For get access token
+$ch = curl_init();
+$data = array("username" => $username, "password" => $password);
+$data_string = json_encode($data);
+$ch = curl_init();
+curl_setopt($ch,CURLOPT_URL, $token_url);
+curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data_string);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+$token = curl_exec($ch);
+$accessToken = json_decode($token);
+echo $accessToken;
+
+
+
+
+
+
+
+
+
+
+
+https://www.rakeshjesadiya.com/customer-search-rest-api-v1-customers-search-in-magento-2/
+
+https://magento.stackexchange.com/questions/155295/magento2-get-all-orders-using-rest-api
+https://community.magento.com/t5/Magento-2-x-Programming/fieldName-is-required-what-went-wrong/td-p/493029
+https://stackoverflow.com/questions/64693689/how-to-run-rest-api-in-magento-using-postman		
+https://www.cloudways.com/blog/magento-2-rest-api/
+https://developer.adobe.com/commerce/php/tutorials/backend/create-custom-rest-api/
+

@@ -1,0 +1,105 @@
+
+			Magento Controller return objects or return types
+
+*Magento 2 controller result objects ::
+--> page, layout, json, raw, forward, redirect
+
+/**#@+
+     * Allowed result types
+     */
+    const TYPE_JSON     = 'json';
+    const TYPE_RAW      = 'raw';
+    const TYPE_REDIRECT = 'redirect';
+    const TYPE_FORWARD  = 'forward';
+    const TYPE_LAYOUT   = 'layout';
+    const TYPE_PAGE     = 'page';
+    /**#@-*/
+
+Magento\Framework\Controller\Result\Forward
+Magento\Framework\Controller\Result\Json
+Magento\Framework\Controller\Result\Redirect
+Magento\Framework\Controller\Result\Raw
+
+use Magento\Framework\Controller\Result\ForwardFactory
+ForwardFactory $resultForwardFactory
+$this->resultForwardFactory = $resultForwardFactory;
+$resultForward = $this->resultForwardFactory->create();
+return $resultForward->forward('edit');
+
+$this->resultFactory = \Magento\Framework\Controller\ResultFactory;
+$resultJson = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_JSON);
+return $resultJson->setData($output);
+
+$resultRedirect = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_REDIRECT);
+return $resultRedirect->setUrl($url) or return $resultRedirect->setPath('frontname/controller/action',array $params[]);
+
+$resultPageFactory \Magento\Framework\View\Result\PageFactory
+$resultPage = $resultPageFactory->create();
+
+$resultPage = $this->resultFactory->create(\Magento\Framework\Controller\ResultFactory::TYPE_PAGE);
+return $resultPage;
+
+Every URL in magento2 corresponds to a single controller file.
+Each controller should have a single execute method.
+
+
+
+
+# Front Controller
+-- The front controller pattern provides a centralized request handling mechanism so that all requests will be handled by a 
+   single handler.
+-- Front controller is a centralized entry point for handling requests.
+-- Front controller will do the authentication / authorization / logging or tracking of request and then pass the requests
+   to corresponding handlers.
+-- It’s responsible for receiving incoming HTTP requests, routing them to the appropriate controllers, and generating corresponding responses.   
+   
+
+
+
+
+
+# Resource Model Collection operations example 
+
+$postCollection = $this->_postCollectionFactory->create();
+        $search = trim($this->getRequest()->getParam('search'));
+        $sort = trim($this->getRequest()->getParam('sort'));
+        $postCollection->addFieldToSelect('*');
+        $postCollection->addFieldToFilter('main_table.entity_id',$customerId);
+        $postCollection->getSelect()->join( array('customer_entity'=> $postCollection->getTable('customer_entity')), 'customer_entity.entity_id = main_table.entity_id');
+        if($search != '') {
+            $postCollection->addFieldToFilter('trails_name',
+                array('like' => '%' . $search . '%'));
+        }
+        if ($sort != '') {
+
+            // $postCollection->setOrder('created_at', ($sort==1 ? 'asc':'desc'));
+            $postCollection->setOrder('trails_id', ($sort==1 ? 'asc':'desc'));
+
+        }
+//           var_dump($postCollection->getSelect()->__toString());
+//        die();
+
+        $postCollection->load();
+        var_dump($postCollection->getItems()); die();
+        return $postCollection->getItems();
+        
+        
+
+https://tiagosampaio.com/2023/06/19/front-controller-the-guy-who-handles-the-request-in-magento-2/   
+   
+
+
+
+
+
+   
+   
+   
+   
+   
+      
+
+
+
+
+

@@ -1,0 +1,44 @@
+						Magento Module
+
+
+#Required Steps
+1. Create Vendor/Module folders
+2. Create Vendor_Module/etc/module.xml
+3. Create Vendor_Module/registration.php
+4. Run 'php bin/magento setup:upgrade' or 'php bin/magento module:enable TestVendor_TestModule'
+5. Check Vendor_Module/app/etc/config.php whether your module listed and enabled ('TestVendor_TestModule' => 1)    
+
+
+# Modules listing, status and enable/disable commands
+php bin/magento module:status
+php bin/magento module:status TestVendor_TestModule
+php bin/magento module:enable TestVendor_TestModule
+php bin/magento module:disable TestVendor_TestModule
+
+
+
+
+
+# <sequence> tag in module.xml file
+-- In module.xml you add all modules on which your module depends. Magento will make sure to load your module after all of these modules.
+-- The module which will load in the end will overwrite the files of previous modules.
+-- sequence tag defines module load order as defined in the app/etc/config.php file
+-- in following Vendor_ComponentB module is dependent on Vendor_ComponentA
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Module/etc/module.xsd">
+    <module name="Vendor_ComponentB" setup_version="0.0.1">
+        <sequence>
+        <!-- Vendor_ComponentB is dependent on Vendor_ComponentA: -->
+            <module name="Vendor_ComponentA" />
+        </sequence>
+    </module>
+</config>
+
+-- theme will always overwrite module templates
+-- When both a theme and a module provide the same template file, the template file in the theme takes priority over the module.
+-- Always prefer customization through themes rather than modules for frontend-related changes.
+
+Theme Templates: Current Theme > Parent Themes > Default Theme
+Module Templates: Current Module > Parent Modules > Default Module
+
+
+https://experienceleague.adobe.com/docs/commerce-learn/tutorials/backend-development/create-module.html?lang=en						

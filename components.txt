@@ -1,0 +1,29 @@
+			Magento Components
+
+class ->  vendor\magento\framework\Component\ComponentRegistrar.php  
+namespace -> Magento\Framework\Component\ComponentRegistrar.php
+
+public static function register($type, $componentName, $path)
+{
+	/* public static register method */  
+}
+
+/**#@+
+     * Different types of components
+     */
+    const MODULE = 'module';
+    const LIBRARY = 'library';
+    const THEME = 'theme';
+    const LANGUAGE = 'language';
+    const SETUP = 'setup';
+    /**#@- */
+    
+
+Example :
+ComponentRegistrar::register(
+    ComponentRegistrar::MODULE,
+    'WebBlogApp_BlogPostModule',
+    __DIR__
+);
+
+

@@ -1,0 +1,68 @@
+			Adobe Commerce Cloud Notes
+
+# Adobe Commerce Cloud Intro
+-- Adobe Commerce Cloud is an AWS-based Platform as a service (PaaS)
+-- Includes hosting infracture and managed services
+-- Deployed with read only access
+
+# Adobe Commerce on cloud infrastructure uses
+-- Web Server : Nginx
+-- Database : MySQL (MariaDB)
+-- Operating System (OS) : Debian GNU/Linux
+-- Content Delivery Network (CDN) : Fastly CDN
+
+# Services we can configure on Adobe Commerce Cloud
+PHP, MySql, Redis, RabbitMQ, Elasticsearch, Opensearch
+
+
+# Commerce Cloud Project Directory Structure
+
+/.magento/routes.yaml -- 
+/.magento/services.yaml
+
+/app
+/m2-hotfixes
+/update
+.gitignore
+
+.magento.app.yaml
+.magento.env.yaml
+
+composer.json
+composer.lock
+
+magento-vars.php
+
+
+-- Application Configuration  : .magento.app.yaml
+-- Environment Configuration : .magento.env.yaml
+-- Routes Configuration : /.magento/routes.yaml
+-- Services Configuration : /.magento/services.yaml
+-- Define multiple stores and sites using variables : ./magento-vars.php
+
+
+
+
+
+
+
+https://experienceleague.adobe.com/docs/commerce-cloud-service/user-guide/project/file-structure.html?lang=en
+https://experienceleague.adobe.com/docs/commerce-cloud-service/user-guide/architecture/cloud-architecture.html?lang=en
+https://experienceleague.adobe.com/docs/commerce-cloud-service/user-guide/configure/app/properties/properties.html?lang=en#relationships			
+https://experienceleague.adobe.com/docs/commerce-cloud-service/user-guide/configure/env/configure-env-yaml.html?lang=en
+https://experienceleague.adobe.com/en/docs/commerce-cloud-service/user-guide/develop/deploy/process
+https://experienceleague.adobe.com/en/docs/commerce-cloud-service/user-guide/develop/deploy/staging-production
+
+https://experienceleague.adobe.com/docs/commerce-learn/tutorials/overview.html?lang=en
+
+
+https://experienceleague.adobe.com/en/docs/commerce-learn/tutorials/adobe-commerce-cloud/technical-onboarding-hardware-handoff/infrastructure-development-best-practices
+https://experienceleague.adobe.com/en/docs/commerce-learn/tutorials/adobe-commerce-cloud/technical-onboarding-hardware-handoff/deployments-testing-monitoring-security
+
+https://experienceleague.adobe.com/en/docs/commerce-learn/tutorials/adobe-commerce-cloud/technical-onboarding-hardware-handoff/configuration-and-debugging
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+			Magento Logs
+
+*\Psr\Log\LoggerInterface $logger
+types of logs such as info, alert, notice, critical, error, and debug 
+However, remember that all of them are archived in system.log file expecting from the debug log that is in debug.log file
+
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/test.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info('Your text message');
+
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/custom.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info('Custom text message');  /** To Print Only String **/ 
+$logger->info(print_r($object->getData(), true));  /** To Print Object Data **/
+
+$writer = new Stream(BP . '/var/log/Productselectionrules.log');
+$logger = new Logger();
+$logger->addWriter($writer);
+$logger->info("SQL");
+$logger->info($collection->getSelect()->__toString())
+
+$writer = new \Zend\Log\Writer\Stream(BP . '/var/log/collection.log');
+$logger = new \Zend\Log\Logger();
+$logger->addWriter($writer);
+$logger->info(print_r($finalskurules->getSelect()->__toString(),1));
+
+/** for 2.4.2 above below can be used for custom log. **/
+$writer = new \Laminas\Log\Writer\Stream(BP . '/var/log/test.log');
+$logger = new  \Laminas\Log\Logger();
+$logger->addWriter($writer);
+$logger->info('text message');

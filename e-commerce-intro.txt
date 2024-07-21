@@ -1,0 +1,23 @@
+
+# Commerce : 
+-- Commerce is defined as the exchange of goods and services for profit between two or more entities. 
+   It typically involves buying and selling things of value. 
+-- Commerce can take place between businesses, between consumers, or between businesses and consumers. 
+
+
+# Types of commerce
+1. Traditional Commerce (or) Offline Commerce
+2. E-Commerce (or) Online Commerce
+
+# Types of Electronic-Commerce
+1. B2B : 
+2. B2C : 
+3. C2B : 
+4. C2C : 		
+			
+# Merchant : 
+-- A merchant is a person or a company that buys and sells goods or services
+-- Wholesalers and retailers(shopkeepers or storekeeper) are two popular types of merchants. Besides them, newer types of merchants 
+   like e-commerce merchants have emerged and earned a stake in the marketplace.
+-- An e-commerce merchant is a merchant that deals strictly in the sales of goods and services online. They do not have physical offices. 
+   They make all their dealings on online platforms. 			

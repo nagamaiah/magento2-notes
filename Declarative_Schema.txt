@@ -1,0 +1,56 @@
+			Declarative Schema
+			
+-- Declarative Schema in Magento 2 is an approach introduced to simplify and improve the way database 
+   schema is defined and managed in Magento modules.
+-- It replaces the traditional way of defining database schema changes using InstallData, InstallSchema, 
+   UpgradeData, and UpgradeSchema scripts with XML files that declare the desired state of the database.   
+-- Declarative schema is introduced in 2018 with Magento 2.3 and it’s one of the major changes
+-- Declarative Schema aims to make it easier to support different database engines.
+-- Constraint always contains the “type” and “referenceId” attributes. Type can be primary, unique or foreign.
+-- `db_schema_whitelist.json` shows a history of all tables, columns and keys added with declarative schema and it’s required for drop operations.
+-- After running setup upgrade or install, you can generate it with the following command
+
+---->	php bin/magento setup:db-declaration:generate-whitelist    <----
+
+-- Each 'Vendor/Module/etc/db_schema.xml' file should contain one or more '<table>' nodes.
+-- Each table node represents a table in the database. A table node can contain the following attributes:
+	name, engine, resource, comment, onCreate
+
+-- A table node can contain three types of subnodes : column, constraint, index
+
+
+Let’s say you have a module with version 1.0.0 and the latest version is 1.0.3. When you upgrade it, script changes for 1.0.1 and 1.0.2 will also be applied. This is less than ideal because Magento applies changes blindly. What that means is that in one version you might introduce a column and then delete it in the very next. That’s one of the problems declarative schema eliminates. Using it, Magento determines the differences between the current table structure and what it should look like. 	
+
+The same goes for table or column deletion. Simply delete the table or column from db_schema.xml and run setup upgrade. However, if you want to drop a column declared in another module, you should redeclare it with the “disabled=true” attribute. It’s also important to know that you can only drop a column if it exists in the db_schema_whitelist.json file.
+
+
+php bin/magento setup:db-declaration:generate-whitelist --module-name=MD_Helloworld
+sudo php bin/magento setup:db-declaration:generate-whitelist --module-name=ApiVendor_CrudModule
+php bin/magento setup:db-declaration:generate-whitelist --module-name=all
+
+sudo php bin/magento setup:db-declaration:generate-whitelist --module-name=Training_DbSchemaModule
+
+-- We need to generate whitelist json file before running upgrade commnad
+-- You must generate the whitelist in any release that contains changes in the db_schema.xml file.
+-- To drop a column declared in another module, redeclare it with the disabled attribute set to true.
+-- Foreign keys can only be added to tables when both tables were created using a declarative schema (db_schema.xml).
+
+# Data Patches
+-- Data patches are classes with data modification instructions.		
+-- Patches are applied only once and a list of those applied patches can be found in the patch_list table in database.
+-- All patches that are not applied will be applied when you run setup upgrade.
+-- You should create your data patch inside Module/Setup/Patch/Data folder. It has to implement \Magento\Framework\Setup\Patch\DataPatchInterface.
+
+
+
+
+https://developer.adobe.com/commerce/php/development/components/declarative-schema/configuration/
+https://inchoo.net/magento-2/declarative-schema/ 
+
+https://www.youtube.com/watch?v=Cewgz36VOf4      			
+
+
+
+
+
+

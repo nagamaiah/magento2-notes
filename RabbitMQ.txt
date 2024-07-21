@@ -1,0 +1,38 @@
+					RabbitMQ (Message Queue System)
+
+-- RabbitMQ is an open-source message broker software that implements the Advanced Message Queuing Protocol (AMQP).
+-- RabbitMQ is a message-queueing software also known as a message broker or queue manager.					
+-- By default, RabbitMQ will send each message to the next consumer, in sequence. On average every consumer will get 
+   the same number of messages. This way of distributing messages is called round-robin.
+
+
+-- A message can include any kind of information. It could, for example, have information about a process or task that should 
+   start on another application (which could even be on another server), or it could be just a simple text message.
+-- The queue-manager software stores the messages until a receiving application connects and takes a message off the queue. 
+   The receiving application then processes the message.   
+-- It can be used to reduce loads and delivery times of web application servers by delegating tasks that would normally take up 
+   a lot of time or resources to a third party that has no other job.					
+					
+					
+					
+# RabbitMQ Adobe Commerce Cloud					
+-- The Message Queue Framework (MQF) is a system within Adobe Commerce that allows a module to publish messages to queues. 
+-- The MQF uses RabbitMQ as the messaging broker, which provides a scalable platform for sending and receiving messages.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://experienceleague.adobe.com/docs/commerce-cloud-service/user-guide/configure/service/rabbitmq.html?lang=en
+https://www.cloudamqp.com/blog/part1-rabbitmq-for-beginners-what-is-rabbitmq.html					

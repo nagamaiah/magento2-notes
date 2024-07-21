@@ -1,0 +1,19 @@
+
+			Magento Date & Time Format
+
+Magento\Framework\Stdlib\DateTime.php
+
+/**#@+
+     * Date format, used as default. Compatible with \DateTime
+     */
+    const DATETIME_INTERNAL_FORMAT = 'yyyy-MM-dd HH:mm:ss';
+
+    const DATE_INTERNAL_FORMAT = 'yyyy-MM-dd';
+
+    const DATETIME_PHP_FORMAT = 'Y-m-d H:i:s';
+
+    const DATE_PHP_FORMAT = 'Y-m-d';
+
+    /**#@-*/
+
+

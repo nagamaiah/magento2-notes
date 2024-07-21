@@ -1,0 +1,111 @@
+
+
+			Magento Layouts
+
+magento 2 layout convention
+[Route Front Name]_[Controller Name]_[Action Name].xml
+
+Layout files: routefrontname_controller_path_actionname.xml
+
+Here, route front name is defined inside below directories respectively for admin and frontend.
+Admin Route: app/code/Vendor_Module/etc/adminhtml/routes.xml
+Frontend Route: app/code/Vendor_Module/etc/frontend/routes.xml
+
+*admin <router id="admin"></router> && <router id="standard"></router>
+*And it’s not mandatory to keep id and frontName attribute to same. frontName attribute defines the actual route in application in both areas.
+
+Example :  admin module
+<module name="Magento_CatalogRule">, 
+frontName="catalog_rule", 
+Namespace : Magento\CatalogRule\Controller\Adminhtml\Promo\Catalog\Index.php
+catalog_rule_promo_catalog_index.xml
+
+admin route frontName -> catalog_rule
+admin controller path name -> promo_catalog
+admin controller action -> index
+
+url example -> http://local.magento245.com/front_name/controller_name/action_name
+
+
+
+// csrf token key  hidden field
+<?= /* @noEscape */ $block->getBlockHtml('formkey') ?>
+
+<?= $block->getChildHtml('customer.form.register.newsletter') ?>
+$addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');
+
+<?= $block->getLayout()
+        ->createBlock(\Magento\Customer\Block\Widget\Name::class)
+        ->setObject($formData)
+        ->setForceUseCustomerAttributes(true)
+        ->toHtml() ?>
+                
+<?php $_dob = $block->getLayout()->createBlock(\Magento\Customer\Block\Widget\Dob::class) ?>
+<?php if ($_dob->isEnabled()): ?>
+    <?= $_dob->setDate($formData->getDob())->toHtml() ?>
+<?php endif ?>
+
+<?php /* Start Custom Changes */ ?>
+<?php if ($myBlock = $block->getChildBlock('my_child_block')): ?>
+    <?php
+        $myBlock->setProduct($_product); 
+        echo $block->getChildHtml('my_child_block', false);
+    ?>
+<?php endif; ?>
+<?php /* End Custom Changes */ ?>
+
+
+<?php
+	if($blockThree =  $block->getChildBlock('block_three')){
+		$three = ["name" => "three", "age"=>3];
+			// dump($blockThree->isEnabled());exit;
+			if($blockThree->isEnabled()){
+				$blockThree->setData("block_three", $three);
+				echo $blockThree->toHtml();	
+			}
+	}
+?>
+
+
+<?php $addressAttributes = $block->getChildBlock('customer_form_address_user_attributes');?>
+	<?php if ($addressAttributes): ?>
+	<?php $addressAttributes->setEntityType('customer_address'); ?>
+	<?php $addressAttributes->setFieldIdFormat('address:%1$s')->setFieldNameFormat('address[%1$s]');?>
+	<?php $block->restoreSessionData($addressAttributes->getMetadataForm(), 'address');?>
+	<?= $addressAttributes->setShowContainer(false)->toHtml() ?>
+<?php endif;?>
+
+
+
+# Different ways to add title in page
+
+-- Layout head tag
+	<head>
+	   <title>Category Page</title>
+	</head>
+-- Layout body tag
+	<body>
+	   <referenceBlock name="page.main.title">
+	      <action method="setPageTitle">
+	          <argument name="page_title" xsi:type="string">Category Page</argument>
+	      </action>
+	   </referenceBlock>
+	</body>	
+
+-- In controller file
+	$this->_view->getPage()->getConfig()->getTitle()->prepend(__('Widget Index Page'));
+	$resultPage->getConfig()->getTitle()->prepend(__('Widget Index Page'));   
+
+
+
+magento245/vendor/magento/module-theme/view/frontend/layout/default.xml
+
+
+https://developer.adobe.com/commerce/frontend-core/guide/layouts/
+https://magento.stackexchange.com/questions/112465/passing-variables-to-a-child-html-block-in-magento-2
+
+https://meetanshi.com/blog/how-to-get-static-block-content-in-block-file-in-magento-2/
+
+
+
+

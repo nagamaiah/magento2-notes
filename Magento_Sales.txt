@@ -1,0 +1,81 @@
+
+
+
+
+self::STATUS_PENDING => __('Ordered'),
+self::STATUS_SHIPPED => __('Shipped'),
+self::STATUS_INVOICED => __('Invoiced'),
+self::STATUS_BACKORDERED => __('Backordered'),
+self::STATUS_RETURNED => __('Returned'),
+self::STATUS_REFUNDED => __('Refunded'),
+self::STATUS_CANCELED => __('Canceled'),
+self::STATUS_PARTIAL => __('Partial'),
+self::STATUS_MIXED => __('Mixed')
+
+
+
+
+
+
+pending -> processing -> complete
+
+
+
+
+
+
+
+# add custom field in magento 2 shipping address and bililng address form.
+module-checkout/Block/Checkout/LayoutProcessor.php file responsible for process layout options
+
+
+
+https://www.mageplaza.com/devdocs/add-new-fields-address-form-magento-2.html
+https://developer.adobe.com/commerce/php/tutorials/frontend/custom-checkout/add-address-field/
+
+https://meetanshi.com/blog/remove-field-in-billing-address-from-checkout-in-magento-2/
+https://www.tigren.com/blog/magento-2-remove-company-field-from-checkout/
+
+
+
+
+
+
+
+-- minicart
+block file -> \Magento\Checkout\Block\Cart\Sidebar
+js file function 
+"[data-block='minicart']": {
+            "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+        }
+        
+
+-- checkout onepage
+block file -> \Magento\Checkout\Block\Onepage
+js file function 
+"#checkout": {
+                "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+            }
+
+-- Shopping cart totals
+block file -> \Magento\Checkout\Block\Cart\Totals
+js file function
+"#cart-totals": {
+                    "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                }
+
+-- shipping address
+block file -> \Magento\Checkout\Block\Cart\Shipping 
+js file function 
+"#block-summary": {
+                    "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                }
+
+
+                       
+
+
+https://devhooks.in/blog/category/sales-order
+https://devhooks.in/blog/category/sales
+https://devhooks.in/blog/category/shipping
+https://devhooks.in/blog/how-to-get-order-details-by-order-id-in-magento2

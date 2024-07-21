@@ -1,0 +1,39 @@
+					Magento 2 practice tasks
+
+
+https://blog.chapagain.com.np/magento-2-add-update-cms-page-via-install-upgrade-script-programmatically/
+
+https://blog.chapagain.com.np/magento-2-add-update-cms-static-block-via-install-upgrade-script-programmatically/
+
+https://blog.chapagain.com.np/magento-2-create-widget-programmatically-assign-static-block-to-it/
+
+https://blog.chapagain.com.np/magento-2-create-add-product-from-modules-installdata-or-upgradedata-script/
+
+https://blog.chapagain.com.np/magento-2-create-customer-attribute-programmatically-also-update-delete-customer-attribute/
+
+https://blog.chapagain.com.np/magento-create-cms-page-static-block-programmatically/	
+
+https://www.mageplaza.com/devdocs/magento-2-create-product-programmatically.html			
+
+https://magefan.com/blog/create-order-in-magento-2-programmatically
+
+https://magento.stackexchange.com/questions/78164/how-to-add-a-customer-programmatically-in-magento-2
+
+https://meetanshi.com/blog/create-customers-programmatically-in-magento-2/
+
+https://magefan.com/blog/create-customer-in-magento-2-programmatically -- done
+
+
+## add to cart
+https://store.magenest.com/blog/how-to-add-products-to-cart/
+https://stackoverflow.com/questions/48297985/magento-2-add-product-to-cart-programmatically-with-custom-options
+https://webkul.com/blog/add-product-cart-magento2/
+
+## place order
+https://www.magedelight.com/resources/how-to-create-order-programmatically-in-magento-2/
+https://magefan.com/blog/create-order-in-magento-2-programmatically
+https://magento.stackexchange.com/questions/116435/how-to-create-order-programmatically-in-magento-2
+https://www.mageplaza.com/devdocs/magento-2-create-order-programmatically.html
+
+
+

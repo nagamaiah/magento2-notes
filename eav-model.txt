@@ -1,0 +1,54 @@
+			Magento EAV Data Model (entity-attribute-value)
+			
+https://bsscommerce.com/confluence/magento-2-eav-model/
+https://inviqa.com/blog/understanding-eav-data-model-and-when-use-it
+https://www.thecoachsmb.com/magento2-database-structure/
+
+
+All magento entities are stored in `eav_entity_type` table (cols : entity_type_id, entity_type_code etc.,)
+entity_type_id  entity_type_code    entity_table
+--------------  ----------------   ---------------
+ 1		customer	   customer_entity
+ 2		customer_address   customer_address_entity
+ 3		catalog_category   catalog_category_entity
+ 4		catalog_product    catalog_product_entity
+ 5		order              sales_order
+ 6		invoice            sales_invoice
+ 7		creditmemo         sales_creditmemo
+ 8		shipment           sales_shipment
+   
+
+All magento entity attributes are stored in `eav_attribute` table (cols : attribute_code,entity_type_id,attribute_code,backend_type).
+
+All values are stored in (entity_type_code)_entity table (main_table). (cols : entity_id)
+backend_type : indicates what data type and attribute is and where the values for the attribute are stored.
+
+Magento backend_types
+1. static
+2. text
+3. decimal
+4. datetime
+5. varchar
+6. int
+
+
+Values are stored in (entity_type_code)_entity_(backend_type).
+backend_type tables (ex- catalog_product_entity_text) cols : value_id, attribute_id, store_id, entity_id, value.
+
+
+EAV product tables (three table for getting data)
+SELECT * FROM catalog_product_entity; (main_table  cpe)
+SELECT * FROM eav_attribute; (ea)
+SELECT * FROM catalog_product_entity_varchar; (cpev)
+
+
+
+
+
+
+
+-- eav entities mysql queries examples
+https://gist.github.com/ticean/735798
+
+
+

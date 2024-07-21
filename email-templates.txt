@@ -1,0 +1,12 @@
+
+
+
+			Magento Email Templates
+
+Navigate to Marketing>Communications>Email Templates
+In magento we use SMTP(simple mail transfor protocol) extension to send emails.
+**Note : Magento 2 custom templates created via the Admin Panel have priority over default or theme-based templates.
+$emailTemplate = \Magento\Framework\App\ObjectManager::getInstance()->get(\Magento\Email\Model\Template::class)->load('credit_purchase', 'template_code');
+Magento\Config\Model\Config\Source\Email\Template (you can get email template list using this class).
+
+

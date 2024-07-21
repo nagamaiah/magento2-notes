@@ -1,0 +1,58 @@
+			KnockoutJs (ko)
+
+-- Knockout JS is a Javascript library that allows you to create dynamic interfaces and implements the 
+   MVVM(Model-View-View Model) pattern to bind data to certain DOM elements.
+-- Knockout is built around three core features:
+	1. Observables and dependency tracking
+	2. Declarative bindings
+	3. Templating
+	
+#Model View ViewModel (MVVM)
+-- Model data represents objects and operations in your business domain. We make Ajax calls to some server-side code to read and write this 
+   stored model data.
+-- ViewModel is object hold properties and methods. When using KO, your view models are pure JavaScript objects that hold no knowledge of HTML.  
+-- View is a visible, interactive UI representing the state of the view model. When using KO, your view is simply your HTML document with 
+   declarative bindings to link it to the view model.
+  
+-- Use 
+https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js (or) 
+https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js
+https://knockoutjs.com/downloads/knockout-3.5.1.js
+<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js'></script>
+<script type='text/javascript' src='knockout-3.5.1.js'></script>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+https://knockoutjs.com/documentation/introduction.html
+https://knockoutjs.com/documentation/observables.html
+https://learn.knockoutjs.com/#/?tutorial=intro
+https://knockoutjs.com/examples/index.html   
+
+https://www.tutorialspoint.com/knockoutjs/index.htm
+https://www.tutorialspoint.com/knockoutjs/knockoutjs_observables.html
+
+
+
+#youtube
+https://www.youtube.com/watch?v=-i_if99cEZU&list=PLzpzty4VRTPfbao0m8oADCmBD5BmWM4rT
+https://www.youtube.com/watch?v=yC9Lt6hTIUE&list=PLo80fWiInSIONI-Al0iVvq9NNWllM0RrT&index=1
+
+
+
+

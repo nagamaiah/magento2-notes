@@ -1,0 +1,33 @@
+			Magento Admin
+
+Every backend or admin controller extends \Magento\Backend\App\Action  class.
+Admin menu -> https://inchoo.net/magento-2/admin-menu-item-magento-2/
+
+Vendor/Module/etc/acl.xml  and  Vendor/Module/etc/adminhtml/menu.xml
+
+/**
+     * Authorization level of a basic admin session
+     */
+    const ADMIN_RESOURCE = 'Magento_Backend::admin';
+
+/**
+     * Checking if the user has access to requested component.
+     *
+     * @return bool
+     */
+    protected function _isAllowed()
+    {
+        return $this->_authorization->isAllowed(static::ADMIN_RESOURCE); or
+	return $this->_authorization->isAllowed('VendorName_ModuleName::resource_name');
+    }
+
+
+
+
+
+
+https://www.pierrefay.com/magento2-training/form-component-backend-crud-admin.html
+https://www.magedelight.com/resources/how-to-create-ui-component-grid-and-form-in-magento-2/
+https://devhooks.in/blog/create-ui-component-form-and-crud-operation-in-magento-2
+https://www.mageplaza.com/devdocs/creat-a-ui-form-in-magento-2.html#conclusion
+https://magecurious.com/blog/how-to-create-ui-component-form-to-perform-crud-operation-in-magento-2/

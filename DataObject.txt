@@ -1,0 +1,14 @@
+					Magento 2 DataObject
+
+--  \Magento\Framework\DataObject alternative of varien_object in M1	
+-- Data objects are also known as Varien objects by Magento 1.x developers.				
+-- Almost all Models and Blocks in Magento extend DataObject.
+-- 
+
+
+
+
+
+https://www.codilar.com/data-objects-magento-2/
+
+

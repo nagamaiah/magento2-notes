@@ -1,0 +1,27 @@
+						Magento_Wishlist module 
+
+
+
+# Magento_Wishlist related tables
+wishlist
+wishlist_item
+wishlist_item_option
+
+
+wishlist Table:
+Description: Stores information about wishlists.
+Columns: wishlist_id, customer_id, shared, sharing_code, updated_at, is_default, etc.
+
+wishlist_item Table:
+Description: Stores information about wishlist items.
+Columns: wishlist_item_id, wishlist_id, product_id, store_id, added_at, description, qty, etc.
+
+wishlist_item_option Table:
+Description: Stores additional options or customizations associated with each wishlist item.
+Columns: option_id, wishlist_item_id, code, value, etc.
+
+-- These tables store data related to wishlists and wishlist items. 
+-- The wishlist table holds information about wishlists, while the wishlist_item table stores 
+   details about individual wishlist items. 
+-- The wishlist_item_option table contains additional options or customizations associated with each wishlist item.
+

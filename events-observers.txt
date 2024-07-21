@@ -1,0 +1,33 @@
+		Events And Observers in Magento 2
+
+-- In magento, event and observer 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://developer.adobe.com/commerce/php/development/components/events-and-observers/
+https://magefan.com/blog/events-and-observers-in-magento-2
+https://webkul.com/blog/observers-in-magento2/

@@ -1,0 +1,281 @@
+						Magento 2 Javascript & JS Modules
+
+Magento 2 is built using PHP and JavaScript, and it uses various JavaScript libraries to enhance the functionality of the frontend. Below are some of the commonly used JavaScript libraries in Magento 2 along with their functions and purposes:
+
+1. RequireJS:
+Purpose: 
+-- RequireJS is a JavaScript file and module loader. It is used in Magento 2 to manage and load JavaScript files and dependencies asynchronously. 
+   It helps in organizing code and improving page loading performance by loading scripts only when they are needed.
+-- It improves perceived page load times because it allows JavaScript to load in the background. 
+   In particular, it enables asynchronous JavaScript loading.
+
+## RequireJS configuration ( https://www.rakeshjesadiya.com/require-js-config-map-vs-paths-vs-shim-in-magento/ )
+-- Magento 2 used Require JS Configuration properties are the map, paths, shim, mixins, and deps.
+-- You can declare the requirejs-config.js file at different AREA Scope like frontend or adminhtml.
+-- Require js used AMD (Asynchronous module definition) pattern to load the js file in the page.
+-- All configuration is done in the requirejs-config.js file. It has a single root object config which contains the configuration options described below. 
+-- var config={} is javascript object of a key value pairs.
+	var config = {
+	    map: {...},
+	    paths: {...},
+	    deps: [...],
+	    shim: {...},
+	    config: {
+		mixins: {...},
+		text: {...}
+	    }
+	}
+
+-- `map`
+-- The map configuration maps (connects) any real AMD modules that calls define(), to the specified alias.
+-- RequireJS library is a file and module loader that implements AMD API (Asynchronous Module Definition). AMD API is used as a specification 
+   with an aim to define modules such that the module and its dependencies can be asynchronously loaded.
+-- Both types of contexts can be applied: either a global context, or a module specific context.
+	map: {
+	    '*': {
+		alias: 'Vendor_Module/js/complex/path/amd-module'
+	    },
+	    'Vendor_Module/js/amd-module': {
+		alias-two: 'Vendor_Module/js/complex/path/amd-module-two'
+	    }
+	}
+-- `*` means all loaded RequireJS modules can use the specified alias. 	
+-- You can also use the map configuration to override core Magento JS or template files.
+	map: {
+	    '*': {
+		'Magento_Checkout/template/view/shipping.html' : 'Thecoachsmb_Checkout/template/view/shipping.html',
+		    'Magento_Checkout/js/view/shipping' : 'Thecoachsmb_Checkout/js/view/shipping'
+	    }
+	}
+-- All requirejs-config.js will get merged all located in magento245/pub/static/frontend/Training/test/en_US/requirejs-config.js (or)
+   pub/static/frontend/Magento/luma/en_US/requirejs-config.js
+
+-- `paths`
+-- The paths configuration, similar to map, is used for aliasing not just any real AMD module that calls define(), but also any JS file (even from a URL), HTML templates, etc.
+-- The application uses this to alias URLs and third-party libraries.
+	paths: {
+	    'alias': 'library/file',
+	    'another-alias': 'https://some-library.com/file'
+	}
+-- Using paths also we can override js and html files
+
+
+-- `deps`
+-- The deps configuration is used to add a dependency. It can either be used directly under var config = {} or under a shim configuration. 
+-- Takes array and specified files will load in all over specified <area> pages if used directly in config={}. Adding modules under an independent deps configuration will load the specified modules in all pages.
+	var config = {
+		deps : ['jquery', 'Work_Space/js/dummy']
+	}
+-- Will load depedency in specified js module if used in shim:{} option
+	shim:{
+		"Work_Space/js/home": {
+			deps: ['dummyJs']
+		}
+	}  (or)
+	shim:{
+	   "Work_Space/js/home": ['dummyJs']
+	}
+	
+-- `shim`
+-- The shim configuration is used to build a dependency on a third party library, since we cannot modify it.
+-- The Require Js shim configuration directive allows you to configure `load order dependencies`.
+-- We use shim to tell the machine load our defined dependency first. ex : jquery loads first for jquery.cookie and bootstrap loads first for bootstrap.tables 
+
+-- `mixins`  ( https://developer.adobe.com/commerce/frontend-core/javascript/mixins/ )
+-- Javascript mixins are used to overwrite component methods.
+-- 
+
+
+2. jQuery:
+Purpose: jQuery is a fast and lightweight JavaScript library that simplifies HTML document traversal and manipulation, event handling, and animation. Magento 2 uses jQuery for various DOM manipulations and AJAX requests.
+
+3. KnockoutJS:
+Purpose: KnockoutJS is a JavaScript library that helps in building dynamic user interfaces with the MVVM (Model-View-ViewModel) pattern. Magento 2 uses KnockoutJS extensively for creating interactive UI components, such as product listings, shopping cart, and checkout pages.
+
+4. UI Components:
+Purpose: Magento 2 uses a set of UI components based on KnockoutJS to create reusable and modular frontend elements. These components include grids, forms, buttons, and more. They provide a consistent way to build the user interface across different parts of the system.
+
+5. Magento_Ui/js/modal/modal:
+Purpose: This library is used to create modal dialogs in Magento 2. Modals are often used for displaying additional information, confirmation messages, or input forms without navigating away from the current page.
+
+6. Magento_Ui/js/lib/validation/rules:
+Purpose: Magento 2 uses this library to handle client-side form validation. It defines various rules and methods for validating form input before submitting it to the server, improving user experience by catching errors early.
+
+7. mage/translate:
+Purpose: The mage/translate library is used for translating text on the frontend. It helps in making Magento 2 stores multilingual by providing a mechanism for translating static text and messages.
+
+8. Magento_Ui/js/form/form:
+Purpose: This library is used for creating and handling frontend forms. It provides functionality for form validation, submission, and interaction. It's often used in the checkout process and customer account forms.
+
+Understanding these libraries and their purposes can be beneficial when customizing or extending the frontend of a Magento 2 store. Keep in mind that the specific libraries and their usage may evolve as Magento 2 receives updates and improvements.
+
+Magento_Ui: A Magento 2-specific JavaScript library that provides reusable UI components and widgets.
+
+# Create a new javascript module and add in magento.
+-- Magento 2 uses RequireJs to define js module as well it has own unique way to execute js code.
+-- Create requirejs-config.js app/code/Vendor/Module/view/<area>/requirejs-config.js
+	var config = {
+		map: {
+			"testJs" : "Work_Space/js/test/test"
+		}
+	}
+-- 
+
+
+
+# Initiate basic js component in magento 2 phtml file
+--  in phtml file
+/var/www/html/magento-projects/magento245/app/code/Training/Test/view/frontend/templates/posts.phtml
+<script type="text/x-magento-init">
+    {
+        "*" : {
+            "Training_Test/js/custom" : {}
+        }
+    }
+</script>
+
+
+-- js file
+/var/www/html/magento-projects/magento245/app/code/Training/Test/view/frontend/web/js/custom.js
+define(["jquery"], function($){
+	"use strict";
+
+	alert("custom js file is loaded");
+
+});
+
+
+
+
+
+
+-- using <script type="text/x-magento-init"></script>
+-- In template file
+<script type="text/x-magento-init">
+    {
+        "*": {
+            "Magento_Customer/js/block-submit-on-send": {
+                "formId": "newsletter-validate-detail"
+            }
+        }
+    }
+</script>
+-- In js file  vendor/magento/module-customer/view/frontend/web/js/block-submit-on-send.js
+define([
+    'jquery',
+    'mage/mage'
+], function ($) {
+    'use strict';
+
+    return function (config) {
+        var dataForm = $('#' + config.formId);
+
+        dataForm.on('submit', function () {
+            $(this).find(':submit').attr('disabled', 'disabled');
+
+            if (this.isValid === false) {
+                $(this).find(':submit').prop('disabled', false);
+            }
+            this.isValid = true;
+        });
+        dataForm.on('invalid-form.validate', function () {
+            $(this).find(':submit').prop('disabled', false);
+            this.isValid = false;
+        });
+    };
+});
+
+
+
+
+
+
+# require() vs define()
+
+
+# RequireJs & KnockoutJs
+# Ui Components
+# jQuery Widgets
+# Javascript Modules
+
+
+
+
+### jQuery Widgets
+-- modal widget
+
+
+-- confirm widget
+
+
+-- redirectUrl widget
+
+
+-- url widget
+
+-- validation widget
+
+
+-- translate widget
+
+-- trimInput widget
+
+-- 'mage/url',
+    'Magento_Ui/js/model/messageList',
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- Magento 2 form validation
+https://www.youtube.com/watch?v=KzoA06flwfY
+
+
+
+
+https://www.thecoachsmb.com/what-is-the-requirejs-configuration-map-vs-paths-vs-shim-in-magento-2/
+https://www.rakeshjesadiya.com/require-js-config-map-vs-paths-vs-shim-in-magento/
+
+https://alanastorm.com/magento_2_and_requirejs/
+https://www.siphor.com/different-ways-using-javascript-magento-2/
+https://belvg.com/tutorial/magento-2-certified-professional-javascript-developer-guide-section-1
+https://magento.stackexchange.com/questions/89187/in-magento2-what-is-script-type-text-x-magento-init
+
+https://devhooks.in/blog/how-to-use-mixins-in-magento-2
+https://devhooks.in/blog/how-to-add-custom-validation-rule-in-magento-2
+
+									
+https://developer.adobe.com/commerce/frontend-core/javascript/									
+https://developer.adobe.com/commerce/frontend-core/javascript/requirejs/
+https://developer.adobe.com/commerce/frontend-core/javascript/init/									
+									
+https://devdocs.mage-os.org/docs/main/javascript-in-magento-2									
+									
+
+jquery widget example
+https://magento.stackexchange.com/questions/208259/magento2-creating-and-calling-modal-widget		
+https://developer.adobe.com/commerce/frontend-core/javascript/jquery-widgets/modal/							
+									
+									
+									

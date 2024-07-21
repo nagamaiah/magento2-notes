@@ -1,0 +1,101 @@
+					Magento 2 Ui Component   (Using KnockoutJs, RequireJs)
+
+-- Knockout JS is a Javascript library that allows you to create dynamic interfaces and implements the 
+   MVVM(Model-View-View Model) pattern to bind data to certain DOM elements.
+--   
+
+
+
+https://www.youtube.com/watch?v=Sz0XKqkn0cg&t=2s
+
+/var/www/html/magento-projects/magento245/vendor/magento/module-tax/view/frontend/web/js/view/checkout/minicart/subtotal/totals.js
+/var/www/html/magento-projects/magento245/vendor/magento/module-two-factor-auth/view/adminhtml/web/js/change_provider.js
+/var/www/html/magento-projects/magento245/vendor/magento/module-two-factor-auth/view/adminhtml/web/js/authy/configure/register.js
+
+<script type="text/x-magento-init">					
+  {
+  	"<element-selector> or *" : {
+  		"Magento_Ui/js/core/app" : {
+  			"components" : {
+  				"<component-name1>" : {
+  					"component": "Codilar_HelloWorld/js/viewModel",
+		                        "template" : "Codilar_HelloWorld/template"
+  				},
+  				"<component-name2>" : {
+  					"component": "Codilar_HelloWorld/js/viewModel",
+		                        "template" : "Codilar_HelloWorld/template"
+  				},
+  				"<component-name3>" : {
+  					"component": "Codilar_HelloWorld/js/viewModel",
+		                        "template" : "Codilar_HelloWorld/template"
+  				}
+  			}
+  		}
+  	}
+  }
+</script>
+
+
+
+setAddedCoupons: function () {
+    var dynamicRows = registry.get(this.options.dynamicRows),
+        dataRows = dynamicRows.recordData();
+
+    $.ajax({
+        url: urlBuilder.build(this.options.ajaxUrl),
+        type: 'POST',
+        dataType: 'json',
+        data: {
+            'data': dataRows,
+            'rowId': this.affiliateCouponId,
+            'form_key': window.FORM_KEY
+        }
+    }).done(function (response) {
+        if (response.status === 'done') {
+            this.customCouponGrid().source.reload();
+            this.closeModalCustomCoupons();
+        }
+
+        if (response.status === 'error') {
+            alert({
+                title: $.mage.__('Error'),
+                content: $.mage.__(response.message),
+                actions: {
+                    always: function () {}
+                }
+            });
+        }
+    }.bind(this));
+},
+
+
+
+
+
+
+
+magento245/vendor/magento/module-checkout/view/frontend/templates/registration.phtml
+magento245/vendor/magento/module-checkout/view/frontend/web/js/view/registration.js
+
+https://www.youtube.com/watch?v=Sz0XKqkn0cg&t=201s
+https://www.youtube.com/watch?v=3S0bA87p_gI
+https://www.youtube.com/watch?v=h3cYhpZMy84
+https://www.codilar.com/knockoutjs-in-magento-2/
+
+https://meetanshi.com/blog/use-knockoutjs-foreach-in-magento-2/
+https://magento.stackexchange.com/questions/335685/add-foreach-loop-in-knockout
+
+
+https://magento.stackexchange.com/questions/208259/magento2-creating-and-calling-modal-widget
+
+https://developer.adobe.com/commerce/frontend-core/ui-components/
+https://developer.adobe.com/commerce/frontend-core/ui-components/concepts/knockout-bindings/
+https://developer.adobe.com/commerce/frontend-core/ui-components/concepts/binding-syntax/
+
+
+
+https://calazanslucas.medium.com/knockoutjs-cheatsheet-for-magento-2-d4a8591acfb2
+
+
+
+

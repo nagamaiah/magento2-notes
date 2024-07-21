@@ -1,0 +1,134 @@
+				Magento Catalog Module (Catalog And Product Management)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Types of products in magento 2
+https://www.youtube.com/watch?v=E6HG223l1js
+https://experienceleague.adobe.com/docs/commerce-admin/catalog/products/types/product-create-simple.html?lang=en
+https://aureatelabs.com/blog/how-to-create-a-new-product-type-in-magento-2/
+
+
+1. Simple Product 
+-- Magento Core Class : \Magento\Catalog\Model\Product\Type\Simple 
+-- A standalone single product with no variations and no customizations
+-- A simple product can be sold individually or as part of a grouped, configurable, or bundle product. 
+-- A simple product with custom options is sometimes referred to as a composite product. 
+-- Examples
+	T-shirt in a single color and size.
+	
+
+2. Configurable Product
+-- Magento Core Class : \Magento\ConfigurableProduct\Model\Product\Type\Configurable
+-- Allow customers to choose different product options and variations like color, size etc., 
+   each with its own SKU to track inventory for each product variation
+-- The configurable product type is a good choice for products with multiple options. 
+-- The input type of any attribute that is used for a product variation must be one of the following: 
+   Dropdown, Visual Swatch (showing colors), or Text Swatch(XS, S, L, M).  
+-- The Stock Status of the configurable product is a semi-manually controlled setting. 
+   It is partially controlled by the stock status of its child products
+-- Examples
+	Clothing items with options for size and color.
+	
+
+3. Grouped Product
+-- Magento Core Class : \Magento\GroupedProduct\Model\Product\Type\Grouped
+-- Collection of simple products that are sold together as a single item
+-- A grouped product consists of simple standalone products that are presented as a group
+-- Although they are presented as a group, each product in the group is purchased as a separate item. 
+   In the shopping cart, each item and the quantity purchased is displayed as a separate line item.
+  
+4. Virtual Product
+-- Magento Core Class : \Magento\Catalog\Model\Product\Type\Virtual
+-- A Non-tangible item that doesn't require shipping such as Subscription, services
+-- Items such as memberships, services, warranties, or subscriptions and digital downloads of books, music, videos, or other products. 
+-- Virtual products dont have Weight field. Creation is same as simple product except weight field.
+-- Examples
+	Fitness Membership
+	Amazon Prime Membership
+	Netflix Membership
+	Udemy Courses	
+
+5. Bundle Product
+-- Magento Core Class : \Magento\Bundle\Model\Product\Type
+-- A bundle is a build your own, customizable product. Based on simple or virtual types
+-- A product composed of multiple components, each with its own SKU.
+-- Minimum Advertised Price (MAP) is not available for Bundle products that use dynamic pricing.
+-- Special Price and Customer Group Price (Tier Price) are always set as the discount percentage for all bundle product types.
+-- The Quantity is not available because the value is determined for each bundle item.
+-- By default, the Stock Status is set to In Stock.
+-- SKU and Weight can be either Fixed or Dynamic.
+-- Bundle items can be shipped together or separately.
+-- Examples
+	Laptop with optional accessories.
+	Camera body, lens and accessories
+	
+
+6. Downloadable Product
+-- Magento Core Class : \Magento\Downloadable\Model\Product\Type
+-- A downloadable product can be anything that you can deliver as a file, such as an eBook, music, video, software application, or update.
+-- Because the download is not available until after the purchase, you can provide samples, such as an excerpt from a book
+-- You can determine the number of times a customer can download a product.
+-- Because downloadable products are not shipped, the Shipping step of the checkout is skipped when the cart contains only the downloadable product.
+-- By default, Stock Status is set to Out of Stock.
+-- Because downloadable products are not shipped, the Weight field is not used. (This item has no weight)
+-- Selling digital(electronic version) goods that customers can access after purchase.
+-- This kind of product allows you to sell apps, software products, digital products, ebooks, music, etc. Magento extensions are also downloadable products.
+
+7. Gift Card Product (Enterprise Edition Only)
+-- Magento Core Class : \Magento\GiftCard\Model\Catalog\Product\Type\Giftcard
+-- Exclusive feature only in Adobe Commerce (Magento Enterprise or Paid Platform)
+-- A product representing a gift card or store credit.
+-- Allowing customers to purchase and send gift cards to others.
+-- Three types of gift card products
+	1. Virtual - A virtual gift card is sent to the recipient’s email address, which is required during the purchase of the gift card. 
+	   A shipping address is not necessary.
+	2. Physical - A physical gift card is shipped to recipient’s address, which is required during the purchase of the gift card.
+	3. Combined - A combined gift card is shipped and emailed to the recipient. The recipient’s email and shipping address is required 
+	   during the purchase of the gift card.
+-- A gift card product does not have its own price in the catalog. The gift card price is derived from the selected gift card amount during the purchase.
+-- The lifetime of a gift card can be unlimited or set to a specified number of days.
+-- Taxes are not applied to gift cards during the gift card purchase. Taxes are applied to products only when a purchased gift card is used to buy products.
+
+
+
+
+
+
+
+https://experienceleague.adobe.com/docs/commerce-admin/catalog/guide-overview.html?lang=en
+
+https://devhooks.in/blog/how-get-product-collection-in-magento-2
+https://devhooks.in/blog/get-product-collection-with-a-specific-attributes-in-magento-2
+https://devhooks.in/blog/magento-2-get-product-collection-by-category-id
+https://devhooks.in/blog/how-to-get-current-category-in-magento-2
+https://devhooks.in/blog/magento-2-get-product-collection-with-filters
+
+
+add product programmatically
+https://www.mageplaza.com/devdocs/magento-2-create-product-programmatically.html
+https://magefan.com/blog/magento-2-create-bundle-product-programmatically
+https://magefan.com/blog/magento-2-create-grouped-product-programmatically
+https://magefan.com/blog/create-configurable-product-in-magento-2-programmatically
+
+
+
+
+
+
+
+

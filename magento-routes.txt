@@ -1,0 +1,69 @@
+			Magento Routing and Types of routes
+			
+-- In magento, routes are essential part of the MVC architecture. 
+-- Routes play a crucial role in handling requests and directing them to the appropriate controllers in a Magento 2 application. 
+-- Every router class in magento should implement \Magento\Framework\App\RouterInterface 
+
+# Adobe Commerce and Magento Open Source routing uses the following flow:
+	pub/index.php -> Application -> Front Controller -> Routing -> Controller Action
+
+
+-- Routing in Magento 2 is based on Front Controller Pattern. Front Controller is a design pattern, in which one component is responsible 
+   for processing all the incoming inquiries, their redirection to the corresponding components, further processing of the results and 
+   returning the results back to the browser.
+-- Routing is handled in FrontController dispatch method. Check for matched route.
+-- If the required path is found successfully, FrontController iterates through the available routers call the method   \Magento\Framework\App\Action\AbstractAction::dispatch of the corresponding controller.
+
+-- All routers in Magento 2 should implement \Magento\Framework\App\RouterInterface interface and define 
+   \Magento\Framework\App\RouterInterface::match method.
+-- The Router class matches a request to an action class that processes the request.   
+-- When the FrontController finds a matching router, it dispatches the request to an action class returned by the router
+-- In case of a successful match the router returns the corresponding controller instance. If the necessary controller is not found, 
+   Front Controller moves on to the next router.
+-- If the FrontController cannot find a router to process a request, it uses the default router.   
+
+-- Based on route front name app area code (frontend or adminhtml) will be resolved
+	\Magento\Backend\App\Area\FrontNameResolver::AREA_CODE
+   
+   
+# Types of routes in Magento 2 with sort orders
+
+# frontend area routers
+1. robots (10) -- Matches request to the robots.txt file
+	\Magento\Robots\Controller\Router.php
+
+2. urlrewrite (20) -- Matches requests with URL defined in the database
+	\Magento\UrlRewrite\Controller\Router.php
+
+3. standard or base (30) -- The standard router
+	\Magento\Framework\App\Router\Base.php
+
+4. cms (60) -- Matches requests for CMS pages
+	\Magento\Cms\Controller\Router.php
+
+5. default (100) -- The default router
+	\Magento\Framework\App\Router\DefaultRouter.php
+	
+# adminhtml area routers
+1. admin (10) -- Matches requests in the Admin area
+	\Magento\Backend\App\Router.php
+	Extends standard router \Magento\Framework\App\Router\Base.php
+	
+2. default (100) -- The default router for the Admin area
+	\Magento\Framework\App\Router\DefaultRouter.php	
+
+new router ->  Magento\Securitytxt\Controller\Router.php	
+
+Default Router
+-- The last router to act during the routing process.
+-- Processes the invalid URLs (not found) using \Magento\Framework\App\Router\NoRouteHandler.php
+-- You can utilize \Magento\Framework\App\Router\NoRouteHandlerInterface.php for processing of custom no-routes (404-pages)
+   	
+
+https://belvg.com/blog/controllers-routers-and-responses-in-magento-2.html
+https://developer.adobe.com/commerce/php/development/components/routing/			
+
+
+
+
+
