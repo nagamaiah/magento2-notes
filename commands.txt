@@ -113,6 +113,7 @@ magento 2 admin create command
 php bin/magento admin:user:create --admin-user=admin243 --admin-password=admin243 --admin-firstname=admin243 --admin-lastname=admin243 --admin-email=tester123@gmail.com
 php bin/magento admin:user:unlock
 php bin/magento admin:user:create --admin-user=nag245 --admin-email=nag245@gmail.com --admin-password=nag245 --admin-firstname=nag245 --admin-lastname=nag245
+php bin/magento admin:user:create --admin-user=admin245 --admin-password=admin245 --admin-firstname=admin245 --admin-lastname=admin245 --admin-email=tester245@gmail.com
 
 
 

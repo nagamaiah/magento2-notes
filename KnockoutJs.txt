@@ -1,4 +1,5 @@
 			KnockoutJs (ko)
+# FLOW ::  Create Observable Data -> applyBindings -> Bind data to DOM ele's 
 
 -- Knockout JS is a Javascript library that allows you to create dynamic interfaces and implements the 
    MVVM(Model-View-View Model) pattern to bind data to certain DOM elements.
@@ -7,40 +8,269 @@
 	2. Declarative bindings
 	3. Templating
 	
+https://knockoutjs.com/downloads/knockout-3.5.1.js
+<script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js'></script>
+	
 #Model View ViewModel (MVVM)
 -- Model data represents objects and operations in your business domain. We make Ajax calls to some server-side code to read and write this 
    stored model data.
 -- ViewModel is object hold properties and methods. When using KO, your view models are pure JavaScript objects that hold no knowledge of HTML.  
 -- View is a visible, interactive UI representing the state of the view model. When using KO, your view is simply your HTML document with 
    declarative bindings to link it to the view model.
-  
--- Use 
+   Ex : var viewModel = {
+	    personName: 'Bob',
+	    personAge: 123
+	};
+-- To create a simple view for a viewModel use declarative binding as below using data-bind attr
+	The name is <span data-bind="text: personName"></span>
+	  
+
+# Context of `this` variable usage
+-- In JavaScript, the value of this can change depending on the context in which a function is called.
+-- Within a method, this refers to the object that owns the method. However, when the method is passed as a callback or 
+   used inside another function, the value of this might change, leading to unexpected behavior.
+-- By using var self = this;, you create a reference to the current value of this that won't change, regardless of the context in which it is used. 
+-- This pattern is commonly used to maintain access to the correct this inside callback functions or nested functions.         
+
+
+# The data-bind="" attribute and ko.applyBindings
+-- The data-bind attribute isn’t native to HTML
+-- To activate Knockout, add the following line to a <script> block:
+	ko.applyBindings(myViewModel, optional DOM ele);    //  myViewModel can be pure javascript object
+	ko.applyBindings(new Icons(), document.querySelector('#fa-icons'));
+	ko.applyBindings(Car, document.getElementById('car'));
+-- different types of data bindings
+1. text, visible, hidden, html, class, css, style, attr
+2. foreach, if, ifnot, with, using, let, component, 
+3. click, event, submit, enable, disable, value, textInput, hasFocus, checked, options, selectedOptions, uniqueName, 
+Ex :	data-bind="text: name
+	data-bind="click: counterReset"
+	data-bind="foreach: users"
+	data-bind="visible: icons().length > 0"
+	data-bind="attr:{'icon-index':$index}, class: $data.icon"	
+
+
+
+# ko Observables, Observable arrays and Subscribe oberservables
+-- To update your UI automatically when the view model changes, We need to declare model properties as observables
+	personName: ko.observable('Bob')
+	isActive : ko.observable(false)
+	userAge : ko.observable(32)
+	userName : ko.obervable("")
+-- To read the observable’s current value
+	this.isActive()
+	myViewModel.personName()
+-- To write a new value to the observable
+	this.isActive(true)	
+	myViewModel.personName("Samsss")
+-- To write values to multiple observable properties on a model object, you can use chaining syntax
+	myViewModel.personName('Mary').personAge(50)	
+-- The whole point of observables is that they can be observed, i.e., other code can say that it wants to be notified of changes
+-- Explicitly subscribing to observables
+	myViewModel.personName.subscribe(function(newValue) {
+	    alert("The person's new name is " + newValue);
+	});
+	
+	Subscribe and unsubscribe after process using dispose() method
+	var subscription = myViewModel.personName.subscribe(function(newValue) { /* do stuff */ });
+	subscription.dispose(); 
+-- Forcing observables to always notify subscribers
+	myViewModel.personName.extend({ notify: 'always' });
+
+# Obeservable Arrays
+-- If you want to detect and respond to changes of a collection of things, use an observableArray. 
+	var myObservableArray = ko.observableArray();    // Initially an empty array
+	myObservableArray.push('Some value');            // Adds the value and notifies observers
+-- Prepopulating an observableArray
+	var anotherObservableArray = ko.observableArray([
+	    { name: "Bungle", type: "Bear" },
+	    { name: "George", type: "Hippo" },
+	    { name: "Zippy", type: "Unknown" }
+	]);	
+-- Reading information from an observableArray
+	myObservableArray().length
+	myObservableArray()[0]
+-- Add and Remove items from observableArray
+	observableArray.push(...)
+	observableArray().push(...)
+-- The indexOf function returns the index of the first array item that equals your parameter.
+	myObservableArray.indexOf('Blah')
+-- Determining if a property is an observableArray
+	ko.isObservableArray
+
+# KO Computed Observables
+-- computed observables are functions that are dependent on one or more other observables, and will automatically update whenever 
+   any of these dependencies change.
+   	this.fullName = ko.computed(function() {
+        	return this.firstName() + " " + this.lastName();
+    	}, this);	
+
+
+# The "foreach" binding --> https://knockoutjs.com/documentation/foreach-binding.html
+-- data-bind="foreach: users"
+-- $data  ->  $data will refer to the value of each observable
+-- $index -> $index to refer to the zero-based index of the current array item
+-- $parent -> you can use $parent to refer to data from outside the foreach
+-- get array length using users().length
+-- push to array using users.push()
+-- remove item using users.slice()
+   Ex : <div data-bind="visible: icons().length > 0">
+		<tbody data-bind="foreach: icons">
+		<tr>
+			<td data-bind="class: $data.icon"></td>
+			<td data-bind="text: $data.name"></td>
+			<td><button data-bind="click: $parent.removeIcon, attr:{'icon-index':$index}">&times;</button></td>
+		</tr>
+		</tbody>
+	</div>
+-- Use “as” to give an alias to “foreach” items
+<ul data-bind="foreach: { data: categories, as: 'category' }">
+    <li>
+        <ul data-bind="foreach: { data: items, as: 'item' }">
+            <li>
+                <span data-bind="text: category.name"></span>:
+                <span data-bind="text: item"></span>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+-- you can use the containerless control flow syntax, which is based on comment tags.
+<!-- ko foreach: myItems -->
+        <li>Item <span data-bind="text: $data"></span></li>
+<!-- /ko -->   
+
+# if and ifnot bindings
+	<div data-bind="ifnot: someProperty">...</div>
+	<div data-bind="if: !someProperty()">...</div>
+
+
+# template binding
+-- The template binding populates the associated DOM element with the results of rendering a template. 
+-- Templates are a simple and convenient way to build sophisticated UI structures - possibly with repeating or nested blocks 
+-- Native templating is the mechanism that underpins foreach, if, with, and other control flow bindings.
+-- String-based templating is a way to connect Knockout to a third-party template engine.
+	<div data-bind="template: { name: 'person-template', data: buyer }"></div>
+	<div data-bind="template: { name: 'person-template', data: seller }"></div>
+ 
+	<script type="text/html" id="person-template">
+	    <h3 data-bind="text: name"></h3>
+	    <p>Credits: <span data-bind="text: credits"></span></p>
+	</script>
+
+-- name — the ID of an element that contains the template you wish to render - see Note 5 for how to vary this programmatically.
+-- data — an object to supply as the data for the template to render. If you omit this parameter, KO will look for a foreach parameter, 
+   or will fall back on using your current model object activated by ko.applyBindings() method.
+-- we can use 'as' to provide alias for foreach
+	<ul data-bind="template: { name: 'employeeTemplate',
+                                  foreach: employees,
+                                  as: 'employee' }"></ul>
+-- Containerless template syntax
+	<tbody>
+		<!--ko foreach: users-->
+			<!-- ko template: {name: 'users-template'} --><!-- /ko -->
+		<!--/ko-->
+	</tbody> (OR)
+	<tbody>
+		<!-- ko template: {name: 'users-template', foreach: users} --><!-- /ko -->
+	</tbody>
+
+	<!-- ko template: {name: 'address-template', data: addressData} --><!-- /ko -->
+
+
+# KO component binding
+-- The component binding injects a specified component into an element, and optionally passes parameters to it.
+	<div data-bind='component: "my-component"'></div>
+	<div data-bind='component: {
+	    name: "message-editor",
+	    params: { initialText: "Hello, world!" }
+	}'></div>
+	
+	ko.components.register('message-editor', {
+	    viewModel: function(params) {
+		this.text = ko.observable(params && params.initialText || '');
+	    },
+	    template: 'Message: <input data-bind="value: text" /> '
+		    + '(length: <span data-bind="text: text().length"></span>)'
+	});
+	 
+	ko.applyBindings();
+-- Your component loaders are asked to supply the viewmodel factory and template
+-- Template-only components
+	ko.components.register('special-offer', {
+	    template: '<div class="offer-box" data-bind="text: productName"></div>'
+	});
+-- Using containerless control flow syntax	
+	<!-- ko component: "message-editor" -->
+	<!-- /ko -->
+	
+	<!-- ko component: {
+	    name: "message-editor",
+	    params: { initialText: "Hello, world!", otherParam: 123 }
+	} -->
+	<!-- /ko -->
+# The "value" binding
+-- The value binding links the associated DOM element’s value with a property on your view model. This is typically useful with form elements such 
+   as <input>, <select> and <textarea>.
+-- If you’re working with checkboxes or radio buttons, use the checked binding to read and write your element’s checked state, not the value binding.
+
+<!-- Two-way binding. Populates textbox; syncs both ways. -->
+<p>First value: <input data-bind="value: firstValue" /></p>
+ 
+<!-- One-way binding. Populates textbox; syncs only from textbox to model. -->
+<p>Second value: <input data-bind="value: secondValue" /></p>
+
+<script type="text/javascript">
+    var viewModel = {
+        firstValue: ko.observable("hello"), // Observable
+        secondValue: "hello, again"         // Not observable
+    };
+</script>
+
+<!-- related bindings: valueUpdate is a parameter for value -->
+Your value: <input data-bind="value: someValue, valueUpdate: 'afterkeydown'" />
+
+-- The textInput binding links a text box (<input>) or text area (<textarea>) with a viewmodel property
+-- Use textInput if we want onkeypress or onkeyup like event. Takes immediate effect unlike value binding
+
+
+# Knockout Js containerless syntax
+-- Knockout.js provides a containerless syntax that is useful when you want to apply bindings to elements without creating a new DOM element. 
+-- Basic Syntax
+	<!-- ko bindingName: expression -->
+	    <!-- Content goes here -->
+	<!-- /ko -->
+-- if Binding
+	<!-- ko if: shouldShow -->
+	    <p>This paragraph is displayed if 'shouldShow' is true.</p>
+	<!-- /ko -->
+-- foreach Binding
+	<!-- ko foreach: items -->
+	    <p>Item: <span data-bind="text: name"></span></p>
+	<!-- /ko -->
+-- with Binding
+	<!-- ko with: selectedItem -->
+	    <h2>Details for <span data-bind="text: name"></span></h2>
+	    <p>Price: $<span data-bind="text: price"></span></p>
+	<!-- /ko -->
+-- template Binding
+	<!-- ko template: { name: 'itemTemplate', data: currentItem } -->
+	<!-- /ko -->
+-- component Binding
+	<!-- ko component: {
+	    name: "message-editor",
+	    params: { initialText: "Hello, world!", otherParam: 123 }
+	} -->
+	<!-- /ko -->
+	
+
+-- Use below CDN links or lib source code
 https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js (or) 
 https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js
 https://knockoutjs.com/downloads/knockout-3.5.1.js
 <script type='text/javascript' src='https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js'></script>
 <script type='text/javascript' src='knockout-3.5.1.js'></script>
    
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-   
-https://knockoutjs.com/documentation/introduction.html
-https://knockoutjs.com/documentation/observables.html
 https://learn.knockoutjs.com/#/?tutorial=intro
 https://knockoutjs.com/examples/index.html   
 
