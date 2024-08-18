@@ -1,0 +1,94 @@
+						Magento2 jQuery Widgets
+
+-- In Magento 2, jQuery widgets are a powerful way to create reusable components that can be easily initialized and managed within the DOM						
+-- Define a basic jQuery widget
+	$.widget('vendor.exampleWidget', {
+		options: {},
+        	_create: function (){},
+        	_destroy: function(){}
+        })
+        return $.vendor.exampleWidget
+        
+-- `options` : This object defines the default options for the widget. These can be overridden when the widget is initialized.
+-- `_create` : This is the constructor function for the widget. It is automatically called when the widget is instantiated. 
+	       It typically sets up the widget's initial state, binds events, and applies styles. 
+	              
+-- Example 
+	# widget javascript file
+	define([
+	    'jquery',
+	    'jquery/ui' // Load jQuery UI dependency
+	], function ($) {
+	    'use strict';
+	    console.log("testingggg js file");
+
+	    $.widget('nags.basicWidget', {
+		options: {
+		    // Default options for the widget
+		    firstname: 'defaultFirstname',
+		    lastname: 'defaultLastname'
+		},
+
+		// The constructor function, called when the widget is initialized
+		_create: function () {
+		    console.log("widget create method called");
+		    console.log(this._getFullName());
+		},
+
+		// A custom private method (starts with underscore) to get fullname using firstname and lastname options
+		_getFullName: function () {
+		    console.log("widget custom method called");
+		    let fullname = `Your fullname is ${this.options.firstname} ${this.options.lastname}`;
+		    return fullname;
+		},
+
+		// A custom public method (doesn't start with underscore) to print hello world
+		sayHelloWorld : function(name) {
+			console.log(`Hi ${name}, Hello world.`);
+			this.element.html(name);
+		},
+		
+		// Destructor: Called when the widget is destroyed
+	        //_destroy: function () {}
+	    });
+
+	    return $.nags.basicWidget;
+	});
+
+	
+	# Use in phtml file using x-magento-init
+	<script type="text/x-magento-init">
+	{
+		"*":{
+			"testingggJs":{
+				"firstname": "<?= $viewModelData->firstname ?>", 
+				"lastname": "<?= $viewModelData->lastname ?>"
+			}
+		}
+	}
+	</script>
+	
+	# Initialization in Another JavaScript File
+	define(["jquery", "testingggJs"], function($){
+
+		$('#fullname').basicWidget({
+			firstname : "Raj",
+			lastname : "Kumar"
+		});
+
+		// Calling a public custom method
+		$('#fullname').basicWidget('sayHelloWorld', 'Danush Koti');
+
+	});
+
+-- private methods in jQuery UI widgets are prefixed with an underscore
+-- public methods doesn't start with _		
+
+
+
+
+jquery widget example
+https://magento.stackexchange.com/questions/208259/magento2-creating-and-calling-modal-widget		
+https://developer.adobe.com/commerce/frontend-core/javascript/jquery-widgets/modal/
+
+

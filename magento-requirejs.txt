@@ -9,6 +9,46 @@ Purpose:
 -- It improves perceived page load times because it allows JavaScript to load in the background. 
    In particular, it enables asynchronous JavaScript loading.
 
+## AMD (Asynchronous Module Definition)
+-- It's a JavaScript module format that allows you to define modules and their dependencies asynchronously. 
+-- his helps in loading JavaScript files more efficiently, as the dependencies are loaded in parallel, improving the performance of web applications.
+-- To use this AMD module in your Magento 2 theme or module, you need to load it using require or define.
+-- Return an object or function from the module, which can be used elsewhere.
+-- Ex AMD Module	define([
+			    'jquery' // This module depends on jQuery
+			], function ($) {
+			    'use strict';
+
+			    return {
+				init: function () {
+				    console.log('Example AMD module loaded!');
+				    $('body').css('background-color', '#f0f0f0');
+				}
+			    };
+			});
+-- Using module in a PHTML file. Load the module using require or integrate it in the Magento 2 frontend using the x-magento-init script.
+	<script type="text/x-magento-init">
+	{
+	    "*": {
+		"js/example": {
+		    "method": "init"
+		}
+	    }
+	}
+	</script>   (or)
+	
+	<script type="text/javascript">
+		require(['jquery', 'js/example'], function($, exampleModule){
+			exampleModule.init();
+		})
+	</script>
+
+-- Using the Module in Another JavaScript File
+	require(['js/example'], function(exampleModule) {
+	    exampleModule.init();
+	});
+				
+				
 ## RequireJS configuration ( https://www.rakeshjesadiya.com/require-js-config-map-vs-paths-vs-shim-in-magento/ )
 -- Magento 2 used Require JS Configuration properties are the map, paths, shim, mixins, and deps.
 -- You can declare the requirejs-config.js file at different AREA Scope like frontend or adminhtml.
@@ -52,12 +92,36 @@ Purpose:
 
 -- `paths`
 -- The paths configuration, similar to map, is used for aliasing not just any real AMD module that calls define(), but also any JS file (even from a URL), HTML templates, etc.
--- The application uses this to alias URLs and third-party libraries.
+-- The application uses this to alias `URLs and third-party` libraries.
 	paths: {
-	    'alias': 'library/file',
-	    'another-alias': 'https://some-library.com/file'
+	    "alias": "library/file",
+	    "another-alias": "https://some-library.com/file",
+	    "braintreeLpm": "https://js.braintreegateway.com/web/3.79.1/js/local-payment.min",
+            "googlePayLibrary": "https://pay.google.com/gp/p/js/pay",
 	}
 -- Using paths also we can override js and html files
+	var config = {
+	    paths: {
+		'<default or core js or html file>': '<custom or core js or html file>'
+	    }
+	};
+	
+	var config = {
+	    paths: {
+		'ui/template/form/element/input': '<vendor_name>_<module_name>/template/form/element/input'
+	    }
+	};
+
+-- When setting a path to an array with multiple script sources, if the first script fails to load, the next is used as a fallback.
+	var config = {
+	    ...
+	    paths: {
+		'alias': [
+		    'https://some-library.com/file',
+		    'vendor_name>_<module_name>/js/file'
+		]
+	    }
+	};
 
 
 -- `deps`
@@ -80,10 +144,37 @@ Purpose:
 -- The shim configuration is used to build a dependency on a third party library, since we cannot modify it.
 -- The Require Js shim configuration directive allows you to configure `load order dependencies`.
 -- We use shim to tell the machine load our defined dependency first. ex : jquery loads first for jquery.cookie and bootstrap loads first for bootstrap.tables 
+-- The `exports` key is used to specify under what identifier the module is exported into. This export identifier can be used to access it.
+	shim: {
+	    '3rd-party-library': ['myJSFile'],
+	    'another-3rd-party-library': {
+		deps: ['myJSFile'],
+		exports: 'another3rdPartyLibrary'
+	    }
+	}
+
 
 -- `mixins`  ( https://developer.adobe.com/commerce/frontend-core/javascript/mixins/ )
--- Javascript mixins are used to overwrite component methods.
--- 
+-- The mixins configuration is used to overwrite component methods of an AMD module which returns either a UI component, a jQuery widget, 
+   or a JS object. 
+-- mixins property is defined under the config property   
+	var config = {
+	    config: {
+		mixins: {
+		    'Magento_Checkout/js/action/place-order': {
+		        'Magento_CheckoutAgreements/js/model/place-order-mixin': true
+		    },
+		    'Magento_Checkout/js/action/set-payment-information': {
+		        'Magento_CheckoutAgreements/js/model/set-payment-information-mixin': true
+		    }
+		}
+	    }
+	};
+-- Mixin : A mixin is written as an AMD module that returns a callback function. This function accepts a target component(module) as an argument and returns a module.
+
+-- `text`
+-- The text configuration is used to set the security request headers using the text.js file.
+
 
 
 2. jQuery:
@@ -119,9 +210,6 @@ Magento_Ui: A Magento 2-specific JavaScript library that provides reusable UI co
 			"testJs" : "Work_Space/js/test/test"
 		}
 	}
--- 
-
-
 
 # Initiate basic js component in magento 2 phtml file
 --  in phtml file
@@ -143,10 +231,6 @@ define(["jquery"], function($){
 	alert("custom js file is loaded");
 
 });
-
-
-
-
 
 
 -- using <script type="text/x-magento-init"></script>
@@ -187,62 +271,18 @@ define([
 
 
 
-
-
-
 # require() vs define()
+Purpose:
+require() is for loading existing modules or dependencies and executing code once they are loaded.
+define() is for defining a new module with optional dependencies.
 
+Usage Context:
+require() is typically used in scripts that need to use existing modules.
+define() is used in scripts where you are creating a new module that can be required by other parts of the application.
 
-# RequireJs & KnockoutJs
-# Ui Components
-# jQuery Widgets
-# Javascript Modules
-
-
-
-
-### jQuery Widgets
--- modal widget
-
-
--- confirm widget
-
-
--- redirectUrl widget
-
-
--- url widget
-
--- validation widget
-
-
--- translate widget
-
--- trimInput widget
-
--- 'mage/url',
-    'Magento_Ui/js/model/messageList',
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Module Definition:
+define() defines a module and can be seen as a building block in the application.
+require() is more about consuming modules that have been defined.
 
 
 
@@ -250,7 +290,7 @@ define([
 
 -- Magento 2 form validation
 https://www.youtube.com/watch?v=KzoA06flwfY
-
+/var/www/html/magento-projects/magento245/vendor/magento/module-newsletter/view/frontend/templates/subscribe.phtml
 
 
 
@@ -273,9 +313,7 @@ https://developer.adobe.com/commerce/frontend-core/javascript/init/
 https://devdocs.mage-os.org/docs/main/javascript-in-magento-2									
 									
 
-jquery widget example
-https://magento.stackexchange.com/questions/208259/magento2-creating-and-calling-modal-widget		
-https://developer.adobe.com/commerce/frontend-core/javascript/jquery-widgets/modal/							
+							
 									
 									
 									

@@ -151,7 +151,7 @@ Describe additional tools that cloud provides (Fastly, downloading database, con
 
 ----------------------------------------------------------------------------------------------------------------------------------------------
 https://experienceleague.adobe.com/docs/certification/program/technical-certifications/ac/ac-professional/ac-p-developer.html?lang=en
-
+https://experienceleague.adobe.com/en/docs/certification/program/technical-certifications/ac/ac-professional/ac-p-developer
 
 https://www.linkedin.com/pulse/complete-guide-magento-2-certification-list-shail-sanghvi
 https://elogic.co/blog/magento-certifications/
