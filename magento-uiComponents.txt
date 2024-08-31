@@ -70,6 +70,22 @@ setAddedCoupons: function () {
 
 
 
+$.ajax({
+	type: 'POST',
+	url: this.url,
+	dataType: 'json',
+	data: {
+	    'api_key': apiKey
+	},
+	success: function (response) {
+	    this.showMessage(response.success === true, response.message);
+	}.bind(this),
+	error: function () {
+	    this.showMessage(false, this.connectionFailedMessage);
+	}.bind(this)
+});
+            
+            
 
 
 

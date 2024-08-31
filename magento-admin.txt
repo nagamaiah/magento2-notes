@@ -25,6 +25,7 @@ Vendor/Module/etc/acl.xml  and  Vendor/Module/etc/adminhtml/menu.xml
 
 
 
+https://amasty.com/blog/how-to-use-ui-components-in-magento-2/
 
 https://www.pierrefay.com/magento2-training/form-component-backend-crud-admin.html
 https://www.magedelight.com/resources/how-to-create-ui-component-grid-and-form-in-magento-2/

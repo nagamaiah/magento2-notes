@@ -1,23 +1,27 @@
 			Adobe Commerce Cloud Notes
 
 # Adobe Commerce Cloud Intro
--- Adobe Commerce Cloud is an AWS-based Platform as a service (PaaS)
+-- Adobe Commerce Cloud is an AWS (or) Azure based Platform as a service (PaaS)
 -- Includes hosting infracture and managed services
 -- Deployed with read only access
+-- The Adobe Commerce on cloud infrastructure project includes all code in Git branches, associated environments, and scripts to deploy 
+   the Commerce application. Environments contain services to support the Commerce application, including a database, web server, and caching server.
+-- 
 
 # Adobe Commerce on cloud infrastructure uses
 -- Web Server : Nginx
 -- Database : MySQL (MariaDB)
 -- Operating System (OS) : Debian GNU/Linux
 -- Content Delivery Network (CDN) : Fastly CDN
+-- The Fastly CDN module is used for CDN and caching services on staging and production environments.
 
 # Services we can configure on Adobe Commerce Cloud
 PHP, MySql, Redis, RabbitMQ, Elasticsearch, Opensearch
 
-
+------------------------------------------------------------------------------------------------------------------------------
 # Commerce Cloud Project Directory Structure
 
-/.magento/routes.yaml -- 
+/.magento/routes.yaml
 /.magento/services.yaml
 
 /app
@@ -31,18 +35,125 @@ PHP, MySql, Redis, RabbitMQ, Elasticsearch, Opensearch
 composer.json
 composer.lock
 
-magento-vars.php
+magento-vars.php -- To define multiple stores and sites using variables
+
+# Application Configuration  : .magento.app.yaml
+-- Use the .magento.app.yaml file to define the following configuration values:
+	Properties—Define property values for application instance.
+	Variables property—Review environment variables required for the Commerce application version.
+	PHP settings—Configure runtime PHP options.
+	Set Cache For Static Files—Set cache TTL for your media and static files.
+-- You can enable or disable PHP extensions in the runtime:extension section.
+	runtime:
+	    extensions:
+		- sockets
+		- sodium
+		- ssh2
+	    disabled_extensions:
+		- bcmath
+		- bz2
+		- calendar
+		- exif
+-- The .magento.app.yaml file uses properties to manage environment support for the Commerce application.
+	access -- Customize user roles
+	crons -- Update specs and schedule cron jobs
+	disk -- Define the persistent disk size. Default 5120. Required value
+	hooks -- Customize shell commands for the build, deploy, and post-deploy phases
+	name -- Define the application name. Required value
+	relationships -- Map services
+	runtime -- required php extensions. Required value
+	type -- Set the base container image php 8.3
+	web & workers -- Handle external requests
+-- For Pro Staging and Production environments, you must Submit an Adobe Commerce Support ticket to update the mounts and disk configuration for your application. 
 
 
--- Application Configuration  : .magento.app.yaml
--- Environment Configuration : .magento.env.yaml
--- Routes Configuration : /.magento/routes.yaml
--- Services Configuration : /.magento/services.yaml
--- Define multiple stores and sites using variables : ./magento-vars.php
+# Environment Configuration : .magento.env.yaml
+
+# Routes Configuration : /.magento/routes.yaml
+-- Routes determine how the application processes incoming HTTP and HTTPS requests.
+-- Use the magento-cloud CLI to view a list of the configured routes:
+	magento-cloud environment:routes
+	
+
+# Services Configuration : /.magento/services.yaml
+-- The services.yaml file defines the services supported and used by Adobe Commerce on cloud infrastructure, such as MySQL, Redis, and Elasticsearch or OpenSearch.
+-- A service becomes available to your application if it is included in the relationships property of the .magento.app.yaml file.
+-- The services.yaml file contains the type and disk values.
+-- Changing a service configuration causes a deployment to provision the environment with the updated services, which affects the following environments:
+	All Starter environments including production and master
+	Pro integration environments
+-- For Pro projects, you must submit an Adobe Commerce Support ticket to install or update services in Staging and Production environments only.
+
+# Define multiple stores and sites using variables : ./magento-vars.php
 
 
+------------------------------------------------------------------------------------------------------------------------------------
+# How to downgrade a service in abode commerce cloud on pro plan environments?
+-- You cannot downgrade an installed service directly. You have two options
+1. Rename the existing service in the .magento/services.yaml file and change the version. 
+   Update the relationships in the .magento.app.yaml file.
+2. Add a new service definition to the services.yaml file for your project with the downgraded version specification. 
+   Update the relationships with newly created service in the .magento.app.yaml file.
+-- git add .magento/services.yaml .magento.app.yaml
+   git commit -m "downgrade MySQL from MariaDB 10.4 to 10.3"
+   git push origin <branch-name> 
+-- For Pro projects, you must submit an Adobe Commerce Support ticket to install or update services in Staging and Production environments only.   
+   
+# How to upgrade a service in adobe commerce cloud ?
+-- You can upgrade the installed service version by updating the service configuration in the services.yaml file.
+-- Original service definition
+	mysql:
+	    type: mysql:10.3
+	    disk: 2048
+-- Updated service definition
+	mysql:
+	    type: mysql:10.4
+	    disk: 5120
+-- Add, commit, and push your code changes.
+	git add .magento/services.yaml
+	git commit -m "Upgrade MySQL from MariaDB 10.3 to 10.4."
+	git push origin <branch-name>
+-- For Pro projects, you must submit an Adobe Commerce Support ticket to install or update services in Staging and Production environments only.
 
 
+-------------------------------------------------------------------------------------------------------------------
+Adobe commerce cloud cli -  magento-cloud cli commands	
+		
+# create a new environment branch
+magento-cloud environment:branch new-branch parent-branch --type development  (or)
+magento-cloud environment:branch my-branch staging
+magento-cloud branch my-branch master --type development
+
+# show list of environments
+magento-cloud environment:list (or)
+magento-cloud environments
+
+# activate and delete environment branch
+magento-cloud environment:activate my-branch
+magento-cloud environment:delete my-branch
+
+# delete vs deactivate environment branch
+-- select environment cloud console -> settings -> first deactivate branch -> and then delete branch
+-- You must deactivate your environment before you can delete the branch
+
+
+# read or show environment logs
+magento-cloud environment:logs staging (or)
+magento-cloud log staging
+
+# checkout an environment
+magento-cloud environment:checkout production (or)
+magento-cloud checkout production
+
+# show an environment relationships
+magento-cloud environment:relationships (or)
+magento-cloud relationships
+
+# Connect cloud console using SSH
+magento-cloud ssh --project <project-id> --environment <env-id> --app <app-name> (or) go to specific env and then magento-cloud ssh
+
+
+-------------------------------------------------------------------------------------------------------------------------------
 
 
 
